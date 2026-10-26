@@ -6,6 +6,7 @@ from coolforge.dataset import generate_samples
 from coolforge.environment import inspect_environment
 from coolforge.ui.inspection import configuration_controls, render_inspection
 from coolforge.ui.tuning import render_tuning
+from coolforge.ui.evidence import render_architecture, render_benchmarks
 
 st.set_page_config(page_title="COOLForge · OpenCV performance workbench", layout="wide")
 st.title("COOLForge")
@@ -28,8 +29,13 @@ def demo_samples():
 
 samples = demo_samples()
 config = configuration_controls()
-inspect_tab, tune_tab = st.tabs(["INSPECT", "AUTOTUNE AGENT"])
+inspect_tab, tune_tab, bench_tab, architecture_tab = st.tabs(
+    ["INSPECT", "AUTOTUNE AGENT", "BENCHMARKS", "ARCHITECTURE & REPRODUCIBILITY"])
 with inspect_tab:
     render_inspection(samples, config)
 with tune_tab:
     render_tuning(samples, config)
+with bench_tab:
+    render_benchmarks(environment)
+with architecture_tab:
+    render_architecture()
