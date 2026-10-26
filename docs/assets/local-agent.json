@@ -1,0 +1,1576 @@
+{
+  "label": "LOCAL DEVELOPMENT ONLY",
+  "benchmark_provenance": "local-benchmark.json",
+  "tuning_seed": 42,
+  "tuning_count": 15,
+  "holdout_seed": 1042,
+  "holdout_count": 20,
+  "agent": {
+    "initial": {
+      "config": {
+        "processing_scale": 1.0,
+        "blur_kernel": 3,
+        "adaptive_block_size": 41,
+        "adaptive_c": 8.0,
+        "morphology_kernel": 1,
+        "min_contour_area": 5.0
+      },
+      "quality": {
+        "precision": 0.903029403029403,
+        "recall": 1.0,
+        "f1": 0.9490440889582521,
+        "iou": 0.903029403029403,
+        "macro_f1": 0.960262687356545
+      },
+      "timing": {
+        "mean_ms": 0.5217266666666667,
+        "p50_ms": 0.5001,
+        "p95_ms": 0.6226599999999999,
+        "throughput_ips": 1916.7124547975313
+      },
+      "stages_ms": {
+        "resize": 0.010717777777777777,
+        "grayscale": 0.027924444444444443,
+        "blur": 0.022339999999999995,
+        "threshold": 0.3808711111111111,
+        "morphology": 0.00870222222222222,
+        "contours": 0.04131111111111112,
+        "annotate": 0.029586666666666664
+      },
+      "samples": [
+        {
+          "id": "0000_clean",
+          "defect": "clean",
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "iou": 1.0,
+          "latency_ms": 0.5126
+        },
+        {
+          "id": "0001_scratch",
+          "defect": "scratch",
+          "precision": 0.9551056338028169,
+          "recall": 1.0,
+          "f1": 0.9770373705538046,
+          "iou": 0.9551056338028169,
+          "latency_ms": 0.5166
+        },
+        {
+          "id": "0002_crack",
+          "defect": "crack",
+          "precision": 0.8866498740554156,
+          "recall": 1.0,
+          "f1": 0.9399198931909212,
+          "iou": 0.8866498740554156,
+          "latency_ms": 0.4935
+        },
+        {
+          "id": "0003_pit",
+          "defect": "pit",
+          "precision": 0.9490445859872612,
+          "recall": 1.0,
+          "f1": 0.9738562091503268,
+          "iou": 0.9490445859872612,
+          "latency_ms": 0.4828
+        },
+        {
+          "id": "0004_blob",
+          "defect": "blob",
+          "precision": 0.9966887417218543,
+          "recall": 1.0,
+          "f1": 0.9983416252072969,
+          "iou": 0.9966887417218543,
+          "latency_ms": 0.4774
+        },
+        {
+          "id": "0005_clean",
+          "defect": "clean",
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "iou": 1.0,
+          "latency_ms": 0.4896
+        },
+        {
+          "id": "0006_scratch",
+          "defect": "scratch",
+          "precision": 0.9175531914893617,
+          "recall": 1.0,
+          "f1": 0.957004160887656,
+          "iou": 0.9175531914893617,
+          "latency_ms": 0.5
+        },
+        {
+          "id": "0007_crack",
+          "defect": "crack",
+          "precision": 0.625560538116592,
+          "recall": 1.0,
+          "f1": 0.7696551724137931,
+          "iou": 0.625560538116592,
+          "latency_ms": 0.5609
+        },
+        {
+          "id": "0008_pit",
+          "defect": "pit",
+          "precision": 0.9819672131147541,
+          "recall": 1.0,
+          "f1": 0.9909015715467329,
+          "iou": 0.9819672131147541,
+          "latency_ms": 0.536
+        },
+        {
+          "id": "0009_blob",
+          "defect": "blob",
+          "precision": 0.9961685823754789,
+          "recall": 1.0,
+          "f1": 0.9980806142034548,
+          "iou": 0.9961685823754789,
+          "latency_ms": 0.6045
+        },
+        {
+          "id": "0010_clean",
+          "defect": "clean",
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "iou": 1.0,
+          "latency_ms": 0.4634
+        },
+        {
+          "id": "0011_scratch",
+          "defect": "scratch",
+          "precision": 0.9635036496350365,
+          "recall": 1.0,
+          "f1": 0.9814126394052045,
+          "iou": 0.9635036496350365,
+          "latency_ms": 0.4904
+        },
+        {
+          "id": "0012_crack",
+          "defect": "crack",
+          "precision": 0.7288629737609329,
+          "recall": 1.0,
+          "f1": 0.8431703204047217,
+          "iou": 0.7288629737609329,
+          "latency_ms": 0.4875
+        },
+        {
+          "id": "0013_pit",
+          "defect": "pit",
+          "precision": 0.9653179190751445,
+          "recall": 1.0,
+          "f1": 0.9823529411764705,
+          "iou": 0.9653179190751445,
+          "latency_ms": 0.4949
+        },
+        {
+          "id": "0014_blob",
+          "defect": "blob",
+          "precision": 0.9845360824742269,
+          "recall": 1.0,
+          "f1": 0.9922077922077922,
+          "iou": 0.9845360824742269,
+          "latency_ms": 0.4999
+        }
+      ],
+      "failures": []
+    },
+    "final": {
+      "config": {
+        "processing_scale": 1.0,
+        "blur_kernel": 3,
+        "adaptive_block_size": 31,
+        "adaptive_c": 8.0,
+        "morphology_kernel": 1,
+        "min_contour_area": 5.0
+      },
+      "quality": {
+        "precision": 0.9384853168469861,
+        "recall": 0.9985199802664035,
+        "f1": 0.9675723049956179,
+        "iou": 0.9371816638370118,
+        "macro_f1": 0.976558826336642
+      },
+      "timing": {
+        "mean_ms": 0.4948377777777778,
+        "p50_ms": 0.4716,
+        "p95_ms": 0.6535199999999999,
+        "throughput_ips": 2020.8643012075786
+      },
+      "stages_ms": {
+        "resize": 0.01299777777777778,
+        "grayscale": 0.03279555555555556,
+        "blur": 0.026753333333333337,
+        "threshold": 0.32961333333333326,
+        "morphology": 0.010815555555555554,
+        "contours": 0.04734,
+        "annotate": 0.03418
+      },
+      "samples": [
+        {
+          "id": "0000_clean",
+          "defect": "clean",
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "iou": 1.0,
+          "latency_ms": 0.4364
+        },
+        {
+          "id": "0001_scratch",
+          "defect": "scratch",
+          "precision": 0.9722222222222222,
+          "recall": 1.0,
+          "f1": 0.9859154929577465,
+          "iou": 0.9722222222222222,
+          "latency_ms": 0.4842
+        },
+        {
+          "id": "0002_crack",
+          "defect": "crack",
+          "precision": 0.9591280653950953,
+          "recall": 1.0,
+          "f1": 0.9791376912378303,
+          "iou": 0.9591280653950953,
+          "latency_ms": 0.4465
+        },
+        {
+          "id": "0003_pit",
+          "defect": "pit",
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "iou": 1.0,
+          "latency_ms": 0.4376
+        },
+        {
+          "id": "0004_blob",
+          "defect": "blob",
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "iou": 1.0,
+          "latency_ms": 0.4876
+        },
+        {
+          "id": "0005_clean",
+          "defect": "clean",
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "iou": 1.0,
+          "latency_ms": 0.5071
+        },
+        {
+          "id": "0006_scratch",
+          "defect": "scratch",
+          "precision": 0.965034965034965,
+          "recall": 1.0,
+          "f1": 0.9822064056939501,
+          "iou": 0.965034965034965,
+          "latency_ms": 0.7279
+        },
+        {
+          "id": "0007_crack",
+          "defect": "crack",
+          "precision": 0.6813186813186813,
+          "recall": 1.0,
+          "f1": 0.8104575163398693,
+          "iou": 0.6813186813186813,
+          "latency_ms": 0.558
+        },
+        {
+          "id": "0008_pit",
+          "defect": "pit",
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "iou": 1.0,
+          "latency_ms": 0.5586
+        },
+        {
+          "id": "0009_blob",
+          "defect": "blob",
+          "precision": 1.0,
+          "recall": 0.9897435897435898,
+          "f1": 0.9948453608247423,
+          "iou": 0.9897435897435898,
+          "latency_ms": 0.4479
+        },
+        {
+          "id": "0010_clean",
+          "defect": "clean",
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "iou": 1.0,
+          "latency_ms": 0.4368
+        },
+        {
+          "id": "0011_scratch",
+          "defect": "scratch",
+          "precision": 0.9814126394052045,
+          "recall": 1.0,
+          "f1": 0.9906191369606003,
+          "iou": 0.9814126394052045,
+          "latency_ms": 0.4826
+        },
+        {
+          "id": "0012_crack",
+          "defect": "crack",
+          "precision": 0.8532423208191127,
+          "recall": 1.0,
+          "f1": 0.9208103130755064,
+          "iou": 0.8532423208191127,
+          "latency_ms": 0.5019
+        },
+        {
+          "id": "0013_pit",
+          "defect": "pit",
+          "precision": 0.9823008849557522,
+          "recall": 0.9970059880239521,
+          "f1": 0.9895988112927192,
+          "iou": 0.9794117647058823,
+          "latency_ms": 0.5255
+        },
+        {
+          "id": "0014_blob",
+          "defect": "blob",
+          "precision": 0.9896373056994818,
+          "recall": 1.0,
+          "f1": 0.9947916666666666,
+          "iou": 0.9896373056994818,
+          "latency_ms": 0.4573
+        }
+      ],
+      "failures": []
+    },
+    "trace": [
+      {
+        "iteration": 1,
+        "observation": {
+          "incumbent": {
+            "quality": {
+              "precision": 0.903029403029403,
+              "recall": 1.0,
+              "f1": 0.9490440889582521,
+              "iou": 0.903029403029403,
+              "macro_f1": 0.960262687356545
+            },
+            "timing": {
+              "mean_ms": 0.5217266666666667,
+              "p50_ms": 0.5001,
+              "p95_ms": 0.6226599999999999,
+              "throughput_ips": 1916.7124547975313
+            },
+            "valid": true
+          },
+          "previous_candidate": null
+        },
+        "action": "processing_scale: 1.0 -> 0.9",
+        "rationale": "Quality floor is satisfied; probe a cheaper pipeline",
+        "candidate_config": {
+          "processing_scale": 0.9,
+          "blur_kernel": 3,
+          "adaptive_block_size": 41,
+          "adaptive_c": 8.0,
+          "morphology_kernel": 1,
+          "min_contour_area": 5.0
+        },
+        "result": {
+          "quality": {
+            "precision": 0.8198671831765357,
+            "recall": 0.9745107712547278,
+            "f1": 0.8905252085055225,
+            "iou": 0.8026547473926589,
+            "macro_f1": 0.9160472948385533
+          },
+          "timing": {
+            "mean_ms": 0.8852888888888889,
+            "p50_ms": 0.8806,
+            "p95_ms": 0.9383999999999999,
+            "throughput_ips": 1129.5747778502937
+          },
+          "valid": true
+        },
+        "accepted": false,
+        "failure": null
+      },
+      {
+        "iteration": 2,
+        "observation": {
+          "incumbent": {
+            "quality": {
+              "precision": 0.903029403029403,
+              "recall": 1.0,
+              "f1": 0.9490440889582521,
+              "iou": 0.903029403029403,
+              "macro_f1": 0.960262687356545
+            },
+            "timing": {
+              "mean_ms": 0.5217266666666667,
+              "p50_ms": 0.5001,
+              "p95_ms": 0.6226599999999999,
+              "throughput_ips": 1916.7124547975313
+            },
+            "valid": true
+          },
+          "previous_candidate": {
+            "quality": {
+              "precision": 0.8198671831765357,
+              "recall": 0.9745107712547278,
+              "f1": 0.8905252085055225,
+              "iou": 0.8026547473926589,
+              "macro_f1": 0.9160472948385533
+            },
+            "timing": {
+              "mean_ms": 0.8852888888888889,
+              "p50_ms": 0.8806,
+              "p95_ms": 0.9383999999999999,
+              "throughput_ips": 1129.5747778502937
+            },
+            "valid": true
+          }
+        },
+        "action": "processing_scale: 1.0 -> 0.8",
+        "rationale": "Quality floor is satisfied; probe a cheaper pipeline",
+        "candidate_config": {
+          "processing_scale": 0.8,
+          "blur_kernel": 3,
+          "adaptive_block_size": 41,
+          "adaptive_c": 8.0,
+          "morphology_kernel": 1,
+          "min_contour_area": 5.0
+        },
+        "result": {
+          "quality": {
+            "precision": 0.7866419294990723,
+            "recall": 0.9761552376253906,
+            "f1": 0.871211565274822,
+            "iou": 0.7718112079053439,
+            "macro_f1": 0.9006968000542536
+          },
+          "timing": {
+            "mean_ms": 0.8568711111111112,
+            "p50_ms": 0.835,
+            "p95_ms": 0.96846,
+            "throughput_ips": 1167.0366605116287
+          },
+          "valid": true
+        },
+        "accepted": false,
+        "failure": null
+      },
+      {
+        "iteration": 3,
+        "observation": {
+          "incumbent": {
+            "quality": {
+              "precision": 0.903029403029403,
+              "recall": 1.0,
+              "f1": 0.9490440889582521,
+              "iou": 0.903029403029403,
+              "macro_f1": 0.960262687356545
+            },
+            "timing": {
+              "mean_ms": 0.5217266666666667,
+              "p50_ms": 0.5001,
+              "p95_ms": 0.6226599999999999,
+              "throughput_ips": 1916.7124547975313
+            },
+            "valid": true
+          },
+          "previous_candidate": {
+            "quality": {
+              "precision": 0.7866419294990723,
+              "recall": 0.9761552376253906,
+              "f1": 0.871211565274822,
+              "iou": 0.7718112079053439,
+              "macro_f1": 0.9006968000542536
+            },
+            "timing": {
+              "mean_ms": 0.8568711111111112,
+              "p50_ms": 0.835,
+              "p95_ms": 0.96846,
+              "throughput_ips": 1167.0366605116287
+            },
+            "valid": true
+          }
+        },
+        "action": "processing_scale: 1.0 -> 0.7",
+        "rationale": "Quality floor is satisfied; probe a cheaper pipeline",
+        "candidate_config": {
+          "processing_scale": 0.7,
+          "blur_kernel": 3,
+          "adaptive_block_size": 41,
+          "adaptive_c": 8.0,
+          "morphology_kernel": 1,
+          "min_contour_area": 5.0
+        },
+        "result": {
+          "quality": {
+            "precision": 0.7532745591939547,
+            "recall": 0.9835553362933728,
+            "f1": 0.853148848156337,
+            "iou": 0.743905472636816,
+            "macro_f1": 0.886116270704305
+          },
+          "timing": {
+            "mean_ms": 0.8658599999999999,
+            "p50_ms": 0.8355,
+            "p95_ms": 1.19996,
+            "throughput_ips": 1154.9211188875802
+          },
+          "valid": true
+        },
+        "accepted": false,
+        "failure": null
+      },
+      {
+        "iteration": 4,
+        "observation": {
+          "incumbent": {
+            "quality": {
+              "precision": 0.903029403029403,
+              "recall": 1.0,
+              "f1": 0.9490440889582521,
+              "iou": 0.903029403029403,
+              "macro_f1": 0.960262687356545
+            },
+            "timing": {
+              "mean_ms": 0.5217266666666667,
+              "p50_ms": 0.5001,
+              "p95_ms": 0.6226599999999999,
+              "throughput_ips": 1916.7124547975313
+            },
+            "valid": true
+          },
+          "previous_candidate": {
+            "quality": {
+              "precision": 0.7532745591939547,
+              "recall": 0.9835553362933728,
+              "f1": 0.853148848156337,
+              "iou": 0.743905472636816,
+              "macro_f1": 0.886116270704305
+            },
+            "timing": {
+              "mean_ms": 0.8658599999999999,
+              "p50_ms": 0.8355,
+              "p95_ms": 1.19996,
+              "throughput_ips": 1154.9211188875802
+            },
+            "valid": true
+          }
+        },
+        "action": "processing_scale: 1.0 -> 0.6",
+        "rationale": "Quality floor is satisfied; probe a cheaper pipeline",
+        "candidate_config": {
+          "processing_scale": 0.6,
+          "blur_kernel": 3,
+          "adaptive_block_size": 41,
+          "adaptive_c": 8.0,
+          "morphology_kernel": 1,
+          "min_contour_area": 5.0
+        },
+        "result": {
+          "quality": {
+            "precision": 0.7127345686297651,
+            "recall": 0.9930932412432166,
+            "f1": 0.8298749484677752,
+            "iou": 0.7092190252495596,
+            "macro_f1": 0.871873161278362
+          },
+          "timing": {
+            "mean_ms": 0.6850644444444446,
+            "p50_ms": 0.6392,
+            "p95_ms": 1.0285,
+            "throughput_ips": 1459.7166852104747
+          },
+          "valid": true
+        },
+        "accepted": false,
+        "failure": "Quality floor violated; incumbent retained"
+      },
+      {
+        "iteration": 5,
+        "observation": {
+          "incumbent": {
+            "quality": {
+              "precision": 0.903029403029403,
+              "recall": 1.0,
+              "f1": 0.9490440889582521,
+              "iou": 0.903029403029403,
+              "macro_f1": 0.960262687356545
+            },
+            "timing": {
+              "mean_ms": 0.5217266666666667,
+              "p50_ms": 0.5001,
+              "p95_ms": 0.6226599999999999,
+              "throughput_ips": 1916.7124547975313
+            },
+            "valid": true
+          },
+          "previous_candidate": {
+            "quality": {
+              "precision": 0.7127345686297651,
+              "recall": 0.9930932412432166,
+              "f1": 0.8298749484677752,
+              "iou": 0.7092190252495596,
+              "macro_f1": 0.871873161278362
+            },
+            "timing": {
+              "mean_ms": 0.6850644444444446,
+              "p50_ms": 0.6392,
+              "p95_ms": 1.0285,
+              "throughput_ips": 1459.7166852104747
+            },
+            "valid": true
+          }
+        },
+        "action": "blur_kernel: 3 -> 5",
+        "rationale": "Quality floor is satisfied; probe a cheaper pipeline",
+        "candidate_config": {
+          "processing_scale": 1.0,
+          "blur_kernel": 5,
+          "adaptive_block_size": 41,
+          "adaptive_c": 8.0,
+          "morphology_kernel": 1,
+          "min_contour_area": 5.0
+        },
+        "result": {
+          "quality": {
+            "precision": 0.8612921507509209,
+            "recall": 0.9996711067258675,
+            "f1": 0.9253367836212801,
+            "iou": 0.8610481586402267,
+            "macro_f1": 0.9410492671702343
+          },
+          "timing": {
+            "mean_ms": 0.7038088888888888,
+            "p50_ms": 0.6639,
+            "p95_ms": 1.03058,
+            "throughput_ips": 1420.8402533516044
+          },
+          "valid": true
+        },
+        "accepted": false,
+        "failure": null
+      },
+      {
+        "iteration": 6,
+        "observation": {
+          "incumbent": {
+            "quality": {
+              "precision": 0.903029403029403,
+              "recall": 1.0,
+              "f1": 0.9490440889582521,
+              "iou": 0.903029403029403,
+              "macro_f1": 0.960262687356545
+            },
+            "timing": {
+              "mean_ms": 0.5217266666666667,
+              "p50_ms": 0.5001,
+              "p95_ms": 0.6226599999999999,
+              "throughput_ips": 1916.7124547975313
+            },
+            "valid": true
+          },
+          "previous_candidate": {
+            "quality": {
+              "precision": 0.8612921507509209,
+              "recall": 0.9996711067258675,
+              "f1": 0.9253367836212801,
+              "iou": 0.8610481586402267,
+              "macro_f1": 0.9410492671702343
+            },
+            "timing": {
+              "mean_ms": 0.7038088888888888,
+              "p50_ms": 0.6639,
+              "p95_ms": 1.03058,
+              "throughput_ips": 1420.8402533516044
+            },
+            "valid": true
+          }
+        },
+        "action": "blur_kernel: 3 -> 7",
+        "rationale": "Quality floor is satisfied; probe a cheaper pipeline",
+        "candidate_config": {
+          "processing_scale": 1.0,
+          "blur_kernel": 7,
+          "adaptive_block_size": 41,
+          "adaptive_c": 8.0,
+          "morphology_kernel": 1,
+          "min_contour_area": 5.0
+        },
+        "result": {
+          "quality": {
+            "precision": 0.7960440136232644,
+            "recall": 0.9993422134517349,
+            "f1": 0.8861830113014947,
+            "iou": 0.7956271275202933,
+            "macro_f1": 0.9177452742315412
+          },
+          "timing": {
+            "mean_ms": 0.7200844444444444,
+            "p50_ms": 0.6647,
+            "p95_ms": 1.0058799999999997,
+            "throughput_ips": 1388.7260136156872
+          },
+          "valid": true
+        },
+        "accepted": false,
+        "failure": null
+      },
+      {
+        "iteration": 7,
+        "observation": {
+          "incumbent": {
+            "quality": {
+              "precision": 0.903029403029403,
+              "recall": 1.0,
+              "f1": 0.9490440889582521,
+              "iou": 0.903029403029403,
+              "macro_f1": 0.960262687356545
+            },
+            "timing": {
+              "mean_ms": 0.5217266666666667,
+              "p50_ms": 0.5001,
+              "p95_ms": 0.6226599999999999,
+              "throughput_ips": 1916.7124547975313
+            },
+            "valid": true
+          },
+          "previous_candidate": {
+            "quality": {
+              "precision": 0.7960440136232644,
+              "recall": 0.9993422134517349,
+              "f1": 0.8861830113014947,
+              "iou": 0.7956271275202933,
+              "macro_f1": 0.9177452742315412
+            },
+            "timing": {
+              "mean_ms": 0.7200844444444444,
+              "p50_ms": 0.6647,
+              "p95_ms": 1.0058799999999997,
+              "throughput_ips": 1388.7260136156872
+            },
+            "valid": true
+          }
+        },
+        "action": "adaptive_block_size: 41 -> 31",
+        "rationale": "Quality floor is satisfied; probe a cheaper pipeline",
+        "candidate_config": {
+          "processing_scale": 1.0,
+          "blur_kernel": 3,
+          "adaptive_block_size": 31,
+          "adaptive_c": 8.0,
+          "morphology_kernel": 1,
+          "min_contour_area": 5.0
+        },
+        "result": {
+          "quality": {
+            "precision": 0.9384853168469861,
+            "recall": 0.9985199802664035,
+            "f1": 0.9675723049956179,
+            "iou": 0.9371816638370118,
+            "macro_f1": 0.976558826336642
+          },
+          "timing": {
+            "mean_ms": 0.4948377777777778,
+            "p50_ms": 0.4716,
+            "p95_ms": 0.6535199999999999,
+            "throughput_ips": 2020.8643012075786
+          },
+          "valid": true
+        },
+        "accepted": true,
+        "failure": null
+      },
+      {
+        "iteration": 8,
+        "observation": {
+          "incumbent": {
+            "quality": {
+              "precision": 0.9384853168469861,
+              "recall": 0.9985199802664035,
+              "f1": 0.9675723049956179,
+              "iou": 0.9371816638370118,
+              "macro_f1": 0.976558826336642
+            },
+            "timing": {
+              "mean_ms": 0.4948377777777778,
+              "p50_ms": 0.4716,
+              "p95_ms": 0.6535199999999999,
+              "throughput_ips": 2020.8643012075786
+            },
+            "valid": true
+          },
+          "previous_candidate": {
+            "quality": {
+              "precision": 0.9384853168469861,
+              "recall": 0.9985199802664035,
+              "f1": 0.9675723049956179,
+              "iou": 0.9371816638370118,
+              "macro_f1": 0.976558826336642
+            },
+            "timing": {
+              "mean_ms": 0.4948377777777778,
+              "p50_ms": 0.4716,
+              "p95_ms": 0.6535199999999999,
+              "throughput_ips": 2020.8643012075786
+            },
+            "valid": true
+          }
+        },
+        "action": "processing_scale: 1.0 -> 0.9",
+        "rationale": "Quality floor is satisfied; probe a cheaper pipeline",
+        "candidate_config": {
+          "processing_scale": 0.9,
+          "blur_kernel": 3,
+          "adaptive_block_size": 31,
+          "adaptive_c": 8.0,
+          "morphology_kernel": 1,
+          "min_contour_area": 5.0
+        },
+        "result": {
+          "quality": {
+            "precision": 0.8385334291876348,
+            "recall": 0.9590527873704983,
+            "f1": 0.89475299171525,
+            "iou": 0.8095502498611882,
+            "macro_f1": 0.9206305225935317
+          },
+          "timing": {
+            "mean_ms": 1.0130622222222223,
+            "p50_ms": 0.9849,
+            "p95_ms": 1.2351,
+            "throughput_ips": 987.1061994656465
+          },
+          "valid": true
+        },
+        "accepted": false,
+        "failure": null
+      },
+      {
+        "iteration": 9,
+        "observation": {
+          "incumbent": {
+            "quality": {
+              "precision": 0.9384853168469861,
+              "recall": 0.9985199802664035,
+              "f1": 0.9675723049956179,
+              "iou": 0.9371816638370118,
+              "macro_f1": 0.976558826336642
+            },
+            "timing": {
+              "mean_ms": 0.4948377777777778,
+              "p50_ms": 0.4716,
+              "p95_ms": 0.6535199999999999,
+              "throughput_ips": 2020.8643012075786
+            },
+            "valid": true
+          },
+          "previous_candidate": {
+            "quality": {
+              "precision": 0.8385334291876348,
+              "recall": 0.9590527873704983,
+              "f1": 0.89475299171525,
+              "iou": 0.8095502498611882,
+              "macro_f1": 0.9206305225935317
+            },
+            "timing": {
+              "mean_ms": 1.0130622222222223,
+              "p50_ms": 0.9849,
+              "p95_ms": 1.2351,
+              "throughput_ips": 987.1061994656465
+            },
+            "valid": true
+          }
+        },
+        "action": "processing_scale: 1.0 -> 0.8",
+        "rationale": "Quality floor is satisfied; probe a cheaper pipeline",
+        "candidate_config": {
+          "processing_scale": 0.8,
+          "blur_kernel": 3,
+          "adaptive_block_size": 31,
+          "adaptive_c": 8.0,
+          "morphology_kernel": 1,
+          "min_contour_area": 5.0
+        },
+        "result": {
+          "quality": {
+            "precision": 0.8136286681715575,
+            "recall": 0.9483637559611906,
+            "f1": 0.8758447869997722,
+            "iou": 0.779113753039719,
+            "macro_f1": 0.9048367718297902
+          },
+          "timing": {
+            "mean_ms": 0.867637777777778,
+            "p50_ms": 0.8032,
+            "p95_ms": 1.2447799999999993,
+            "throughput_ips": 1152.5547015267505
+          },
+          "valid": true
+        },
+        "accepted": false,
+        "failure": null
+      },
+      {
+        "iteration": 10,
+        "observation": {
+          "incumbent": {
+            "quality": {
+              "precision": 0.9384853168469861,
+              "recall": 0.9985199802664035,
+              "f1": 0.9675723049956179,
+              "iou": 0.9371816638370118,
+              "macro_f1": 0.976558826336642
+            },
+            "timing": {
+              "mean_ms": 0.4948377777777778,
+              "p50_ms": 0.4716,
+              "p95_ms": 0.6535199999999999,
+              "throughput_ips": 2020.8643012075786
+            },
+            "valid": true
+          },
+          "previous_candidate": {
+            "quality": {
+              "precision": 0.8136286681715575,
+              "recall": 0.9483637559611906,
+              "f1": 0.8758447869997722,
+              "iou": 0.779113753039719,
+              "macro_f1": 0.9048367718297902
+            },
+            "timing": {
+              "mean_ms": 0.867637777777778,
+              "p50_ms": 0.8032,
+              "p95_ms": 1.2447799999999993,
+              "throughput_ips": 1152.5547015267505
+            },
+            "valid": true
+          }
+        },
+        "action": "processing_scale: 1.0 -> 0.7",
+        "rationale": "Quality floor is satisfied; probe a cheaper pipeline",
+        "candidate_config": {
+          "processing_scale": 0.7,
+          "blur_kernel": 3,
+          "adaptive_block_size": 31,
+          "adaptive_c": 8.0,
+          "morphology_kernel": 1,
+          "min_contour_area": 5.0
+        },
+        "result": {
+          "quality": {
+            "precision": 0.7881536819637139,
+            "recall": 0.9715507317875349,
+            "f1": 0.8702953524342638,
+            "iou": 0.7703742339288043,
+            "macro_f1": 0.898296190393927
+          },
+          "timing": {
+            "mean_ms": 0.7959422222222222,
+            "p50_ms": 0.7371,
+            "p95_ms": 1.1068199999999995,
+            "throughput_ips": 1256.3726010263167
+          },
+          "valid": true
+        },
+        "accepted": false,
+        "failure": null
+      },
+      {
+        "iteration": 11,
+        "observation": {
+          "incumbent": {
+            "quality": {
+              "precision": 0.9384853168469861,
+              "recall": 0.9985199802664035,
+              "f1": 0.9675723049956179,
+              "iou": 0.9371816638370118,
+              "macro_f1": 0.976558826336642
+            },
+            "timing": {
+              "mean_ms": 0.4948377777777778,
+              "p50_ms": 0.4716,
+              "p95_ms": 0.6535199999999999,
+              "throughput_ips": 2020.8643012075786
+            },
+            "valid": true
+          },
+          "previous_candidate": {
+            "quality": {
+              "precision": 0.7881536819637139,
+              "recall": 0.9715507317875349,
+              "f1": 0.8702953524342638,
+              "iou": 0.7703742339288043,
+              "macro_f1": 0.898296190393927
+            },
+            "timing": {
+              "mean_ms": 0.7959422222222222,
+              "p50_ms": 0.7371,
+              "p95_ms": 1.1068199999999995,
+              "throughput_ips": 1256.3726010263167
+            },
+            "valid": true
+          }
+        },
+        "action": "processing_scale: 1.0 -> 0.6",
+        "rationale": "Quality floor is satisfied; probe a cheaper pipeline",
+        "candidate_config": {
+          "processing_scale": 0.6,
+          "blur_kernel": 3,
+          "adaptive_block_size": 31,
+          "adaptive_c": 8.0,
+          "morphology_kernel": 1,
+          "min_contour_area": 5.0
+        },
+        "result": {
+          "quality": {
+            "precision": 0.7446728971962617,
+            "recall": 0.9827331031080414,
+            "f1": 0.8472990216928966,
+            "iou": 0.7350553505535056,
+            "macro_f1": 0.8851203641206555
+          },
+          "timing": {
+            "mean_ms": 0.6325400000000001,
+            "p50_ms": 0.6316,
+            "p95_ms": 0.72688,
+            "throughput_ips": 1580.9276883675338
+          },
+          "valid": true
+        },
+        "accepted": false,
+        "failure": "Quality floor violated; incumbent retained"
+      },
+      {
+        "iteration": 12,
+        "observation": {
+          "incumbent": {
+            "quality": {
+              "precision": 0.9384853168469861,
+              "recall": 0.9985199802664035,
+              "f1": 0.9675723049956179,
+              "iou": 0.9371816638370118,
+              "macro_f1": 0.976558826336642
+            },
+            "timing": {
+              "mean_ms": 0.4948377777777778,
+              "p50_ms": 0.4716,
+              "p95_ms": 0.6535199999999999,
+              "throughput_ips": 2020.8643012075786
+            },
+            "valid": true
+          },
+          "previous_candidate": {
+            "quality": {
+              "precision": 0.7446728971962617,
+              "recall": 0.9827331031080414,
+              "f1": 0.8472990216928966,
+              "iou": 0.7350553505535056,
+              "macro_f1": 0.8851203641206555
+            },
+            "timing": {
+              "mean_ms": 0.6325400000000001,
+              "p50_ms": 0.6316,
+              "p95_ms": 0.72688,
+              "throughput_ips": 1580.9276883675338
+            },
+            "valid": true
+          }
+        },
+        "action": "blur_kernel: 3 -> 5",
+        "rationale": "Quality floor is satisfied; probe a cheaper pipeline",
+        "candidate_config": {
+          "processing_scale": 1.0,
+          "blur_kernel": 5,
+          "adaptive_block_size": 31,
+          "adaptive_c": 8.0,
+          "morphology_kernel": 1,
+          "min_contour_area": 5.0
+        },
+        "result": {
+          "quality": {
+            "precision": 0.896500812047837,
+            "recall": 0.9985199802664035,
+            "f1": 0.9447642757118406,
+            "iou": 0.8953111176644057,
+            "macro_f1": 0.9579311183014353
+          },
+          "timing": {
+            "mean_ms": 0.5353711111111111,
+            "p50_ms": 0.5144,
+            "p95_ms": 0.64626,
+            "throughput_ips": 1867.8632060004068
+          },
+          "valid": true
+        },
+        "accepted": false,
+        "failure": null
+      }
+    ],
+    "stop_reason": "iteration_limit",
+    "quality_floor": 0.85,
+    "feasible": true,
+    "pareto": [
+      {
+        "config": {
+          "processing_scale": 1.0,
+          "blur_kernel": 3,
+          "adaptive_block_size": 31,
+          "adaptive_c": 8.0,
+          "morphology_kernel": 1,
+          "min_contour_area": 5.0
+        },
+        "quality": {
+          "precision": 0.9384853168469861,
+          "recall": 0.9985199802664035,
+          "f1": 0.9675723049956179,
+          "iou": 0.9371816638370118,
+          "macro_f1": 0.976558826336642
+        },
+        "timing": {
+          "mean_ms": 0.4948377777777778,
+          "p50_ms": 0.4716,
+          "p95_ms": 0.6535199999999999,
+          "throughput_ips": 2020.8643012075786
+        },
+        "valid": true
+      }
+    ]
+  },
+  "holdout_before": {
+    "config": {
+      "processing_scale": 1.0,
+      "blur_kernel": 3,
+      "adaptive_block_size": 41,
+      "adaptive_c": 8.0,
+      "morphology_kernel": 1,
+      "min_contour_area": 5.0
+    },
+    "quality": {
+      "precision": 0.9159795428452144,
+      "recall": 1.0,
+      "f1": 0.9561475186577327,
+      "iou": 0.9159795428452144,
+      "macro_f1": 0.9515450367317122
+    },
+    "timing": {
+      "mean_ms": 0.7785266666666666,
+      "p50_ms": 0.6523,
+      "p95_ms": 1.2996349999999988,
+      "throughput_ips": 1284.4775173618546
+    },
+    "stages_ms": {
+      "resize": 0.01534,
+      "grayscale": 0.045721666666666674,
+      "blur": 0.03190333333333333,
+      "threshold": 0.572485,
+      "morphology": 0.014584999999999999,
+      "contours": 0.057873333333333325,
+      "annotate": 0.04012833333333333
+    },
+    "samples": [
+      {
+        "id": "0000_clean",
+        "defect": "clean",
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "iou": 1.0,
+        "latency_ms": 1.6917
+      },
+      {
+        "id": "0001_scratch",
+        "defect": "scratch",
+        "precision": 0.9577836411609498,
+        "recall": 1.0,
+        "f1": 0.9784366576819407,
+        "iou": 0.9577836411609498,
+        "latency_ms": 0.6662
+      },
+      {
+        "id": "0002_crack",
+        "defect": "crack",
+        "precision": 0.7221006564551422,
+        "recall": 1.0,
+        "f1": 0.8386277001270648,
+        "iou": 0.7221006564551422,
+        "latency_ms": 0.6245
+      },
+      {
+        "id": "0003_pit",
+        "defect": "pit",
+        "precision": 0.9431818181818182,
+        "recall": 1.0,
+        "f1": 0.9707602339181286,
+        "iou": 0.9431818181818182,
+        "latency_ms": 0.6081
+      },
+      {
+        "id": "0004_blob",
+        "defect": "blob",
+        "precision": 0.9968652037617555,
+        "recall": 1.0,
+        "f1": 0.9984301412872841,
+        "iou": 0.9968652037617555,
+        "latency_ms": 0.5512
+      },
+      {
+        "id": "0005_clean",
+        "defect": "clean",
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "iou": 1.0,
+        "latency_ms": 0.824
+      },
+      {
+        "id": "0006_scratch",
+        "defect": "scratch",
+        "precision": 0.9720464135021097,
+        "recall": 1.0,
+        "f1": 0.9858250869216368,
+        "iou": 0.9720464135021097,
+        "latency_ms": 0.6522
+      },
+      {
+        "id": "0007_crack",
+        "defect": "crack",
+        "precision": 0.8627450980392157,
+        "recall": 1.0,
+        "f1": 0.9263157894736842,
+        "iou": 0.8627450980392157,
+        "latency_ms": 0.6036
+      },
+      {
+        "id": "0008_pit",
+        "defect": "pit",
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "iou": 1.0,
+        "latency_ms": 0.6271
+      },
+      {
+        "id": "0009_blob",
+        "defect": "blob",
+        "precision": 0.994261119081779,
+        "recall": 1.0,
+        "f1": 0.9971223021582734,
+        "iou": 0.994261119081779,
+        "latency_ms": 0.6152
+      },
+      {
+        "id": "0010_clean",
+        "defect": "clean",
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "iou": 1.0,
+        "latency_ms": 0.6749
+      },
+      {
+        "id": "0011_scratch",
+        "defect": "scratch",
+        "precision": 0.6748971193415638,
+        "recall": 1.0,
+        "f1": 0.8058968058968059,
+        "iou": 0.6748971193415638,
+        "latency_ms": 0.7144
+      },
+      {
+        "id": "0012_crack",
+        "defect": "crack",
+        "precision": 0.7692307692307693,
+        "recall": 1.0,
+        "f1": 0.8695652173913043,
+        "iou": 0.7692307692307693,
+        "latency_ms": 0.6493
+      },
+      {
+        "id": "0013_pit",
+        "defect": "pit",
+        "precision": 0.725,
+        "recall": 1.0,
+        "f1": 0.8405797101449275,
+        "iou": 0.725,
+        "latency_ms": 0.5611
+      },
+      {
+        "id": "0014_blob",
+        "defect": "blob",
+        "precision": 0.9753086419753086,
+        "recall": 1.0,
+        "f1": 0.9875,
+        "iou": 0.9753086419753086,
+        "latency_ms": 0.5574
+      },
+      {
+        "id": "0015_clean",
+        "defect": "clean",
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "iou": 1.0,
+        "latency_ms": 0.6052
+      },
+      {
+        "id": "0016_scratch",
+        "defect": "scratch",
+        "precision": 0.8324468085106383,
+        "recall": 1.0,
+        "f1": 0.9085631349782293,
+        "iou": 0.8324468085106383,
+        "latency_ms": 0.6843
+      },
+      {
+        "id": "0017_crack",
+        "defect": "crack",
+        "precision": 0.9142857142857143,
+        "recall": 1.0,
+        "f1": 0.9552238805970149,
+        "iou": 0.9142857142857143,
+        "latency_ms": 0.9033
+      },
+      {
+        "id": "0018_pit",
+        "defect": "pit",
+        "precision": 0.9586206896551724,
+        "recall": 1.0,
+        "f1": 0.9788732394366197,
+        "iou": 0.9586206896551724,
+        "latency_ms": 0.6411
+      },
+      {
+        "id": "0019_blob",
+        "defect": "blob",
+        "precision": 0.9785932721712538,
+        "recall": 1.0,
+        "f1": 0.9891808346213292,
+        "iou": 0.9785932721712538,
+        "latency_ms": 0.7881
+      }
+    ],
+    "failures": []
+  },
+  "holdout_after": {
+    "config": {
+      "processing_scale": 1.0,
+      "blur_kernel": 3,
+      "adaptive_block_size": 31,
+      "adaptive_c": 8.0,
+      "morphology_kernel": 1,
+      "min_contour_area": 5.0
+    },
+    "quality": {
+      "precision": 0.9537943031093716,
+      "recall": 0.9996581586144029,
+      "f1": 0.9761878268610215,
+      "iou": 0.9534833170307575,
+      "macro_f1": 0.9736686509884687
+    },
+    "timing": {
+      "mean_ms": 0.54261,
+      "p50_ms": 0.49395,
+      "p95_ms": 0.807815,
+      "throughput_ips": 1842.94428779418
+    },
+    "stages_ms": {
+      "resize": 0.014438333333333334,
+      "grayscale": 0.03419833333333334,
+      "blur": 0.031753333333333335,
+      "threshold": 0.35375333333333336,
+      "morphology": 0.013349999999999997,
+      "contours": 0.054895000000000006,
+      "annotate": 0.039775000000000005
+    },
+    "samples": [
+      {
+        "id": "0000_clean",
+        "defect": "clean",
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "iou": 1.0,
+        "latency_ms": 0.4284
+      },
+      {
+        "id": "0001_scratch",
+        "defect": "scratch",
+        "precision": 0.9766816143497757,
+        "recall": 1.0,
+        "f1": 0.9882032667876588,
+        "iou": 0.9766816143497757,
+        "latency_ms": 0.7793
+      },
+      {
+        "id": "0002_crack",
+        "defect": "crack",
+        "precision": 0.7810650887573964,
+        "recall": 1.0,
+        "f1": 0.8770764119601329,
+        "iou": 0.7810650887573964,
+        "latency_ms": 0.5375
+      },
+      {
+        "id": "0003_pit",
+        "defect": "pit",
+        "precision": 0.9673659673659674,
+        "recall": 1.0,
+        "f1": 0.9834123222748815,
+        "iou": 0.9673659673659674,
+        "latency_ms": 0.4594
+      },
+      {
+        "id": "0004_blob",
+        "defect": "blob",
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "iou": 1.0,
+        "latency_ms": 0.4629
+      },
+      {
+        "id": "0005_clean",
+        "defect": "clean",
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "iou": 1.0,
+        "latency_ms": 0.7087
+      },
+      {
+        "id": "0006_scratch",
+        "defect": "scratch",
+        "precision": 0.9882037533512065,
+        "recall": 1.0,
+        "f1": 0.994066882416397,
+        "iou": 0.9882037533512065,
+        "latency_ms": 0.4406
+      },
+      {
+        "id": "0007_crack",
+        "defect": "crack",
+        "precision": 0.9386666666666666,
+        "recall": 1.0,
+        "f1": 0.9683631361760661,
+        "iou": 0.9386666666666666,
+        "latency_ms": 0.5469
+      },
+      {
+        "id": "0008_pit",
+        "defect": "pit",
+        "precision": 1.0,
+        "recall": 0.9941634241245136,
+        "f1": 0.9970731707317073,
+        "iou": 0.9941634241245136,
+        "latency_ms": 0.7408
+      },
+      {
+        "id": "0009_blob",
+        "defect": "blob",
+        "precision": 0.994261119081779,
+        "recall": 1.0,
+        "f1": 0.9971223021582734,
+        "iou": 0.994261119081779,
+        "latency_ms": 0.5635
+      },
+      {
+        "id": "0010_clean",
+        "defect": "clean",
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "iou": 1.0,
+        "latency_ms": 0.5441
+      },
+      {
+        "id": "0011_scratch",
+        "defect": "scratch",
+        "precision": 0.8631578947368421,
+        "recall": 1.0,
+        "f1": 0.9265536723163842,
+        "iou": 0.8631578947368421,
+        "latency_ms": 0.4939
+      },
+      {
+        "id": "0012_crack",
+        "defect": "crack",
+        "precision": 0.8928571428571429,
+        "recall": 1.0,
+        "f1": 0.9433962264150944,
+        "iou": 0.8928571428571429,
+        "latency_ms": 0.4442
+      },
+      {
+        "id": "0013_pit",
+        "defect": "pit",
+        "precision": 0.7837837837837838,
+        "recall": 1.0,
+        "f1": 0.8787878787878788,
+        "iou": 0.7837837837837838,
+        "latency_ms": 0.4496
+      },
+      {
+        "id": "0014_blob",
+        "defect": "blob",
+        "precision": 0.9857397504456328,
+        "recall": 1.0,
+        "f1": 0.992818671454219,
+        "iou": 0.9857397504456328,
+        "latency_ms": 0.4662
+      },
+      {
+        "id": "0015_clean",
+        "defect": "clean",
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "iou": 1.0,
+        "latency_ms": 0.4555
+      },
+      {
+        "id": "0016_scratch",
+        "defect": "scratch",
+        "precision": 0.9233038348082596,
+        "recall": 1.0,
+        "f1": 0.9601226993865031,
+        "iou": 0.9233038348082596,
+        "latency_ms": 0.5535
+      },
+      {
+        "id": "0017_crack",
+        "defect": "crack",
+        "precision": 0.9617486338797814,
+        "recall": 1.0,
+        "f1": 0.9805013927576601,
+        "iou": 0.9617486338797814,
+        "latency_ms": 0.4959
+      },
+      {
+        "id": "0018_pit",
+        "defect": "pit",
+        "precision": 0.9858156028368794,
+        "recall": 1.0,
+        "f1": 0.9928571428571429,
+        "iou": 0.9858156028368794,
+        "latency_ms": 0.4797
+      },
+      {
+        "id": "0019_blob",
+        "defect": "blob",
+        "precision": 0.9861325115562404,
+        "recall": 1.0,
+        "f1": 0.9930178432893716,
+        "iou": 0.9861325115562404,
+        "latency_ms": 0.5182
+      }
+    ],
+    "failures": []
+  }
+}

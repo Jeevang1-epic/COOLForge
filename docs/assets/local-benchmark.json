@@ -1,0 +1,533 @@
+{
+  "schema_version": 1,
+  "artifact_kind": "measurement",
+  "name": "local",
+  "created_at": "2026-10-26T06:04:58.593324+00:00",
+  "environment": {
+    "python_version": "3.14.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "machine": "AMD64",
+    "cv2_version": "4.13.0",
+    "cv2_file": "[personal installation path redacted]",
+    "opencv5_verified": false,
+    "cool_verified": false,
+    "architecture_arm64": false,
+    "cool_root_exists": false,
+    "build_excerpt": [
+      "Version control:               4.13.0-1-gb4c5ec4042",
+      "Parallel framework:            Concurrency",
+      "Custom HAL:                  YES (ipp (ver 0.0.1))"
+    ],
+    "build_sha256": "ff1039e9083e174127b9c27c895a9472534ef21986e4fc55878ab452a279787b",
+    "evidence": [
+      "Affirmative custom acceleration build marker"
+    ],
+    "warnings": [
+      "Not verified: OpenCV major version 5",
+      "Not verified: Arm64 architecture",
+      "Not verified: COOL installation root exists",
+      "Not verified: cv2 loaded from /opt/cool",
+      "Build provenance does not prove per-operation acceleration or AWS hosting"
+    ]
+  },
+  "host": {
+    "host_id": "b8a2040c56726b44",
+    "processor": "Intel64 Family 6 Model 170 Stepping 4, GenuineIntel",
+    "python_implementation": "cpython",
+    "cv_threads": 1
+  },
+  "git_commit": "02a986f2262357ffe1941d54b580da70888c42ad",
+  "source_sha256": "9b1e94b650c5cfc5a580a9bf942dec07bedf54922aef12221fe46097ab0c9ad4",
+  "dataset_sha256": "8da842b56fc4646bfcacf4f6990f3d167b41e4ba955b8094a395f85fb0ca7a00",
+  "sample_count": 50,
+  "warmups": 2,
+  "iterations": 5,
+  "evaluation": {
+    "config": {
+      "processing_scale": 1.0,
+      "blur_kernel": 3,
+      "adaptive_block_size": 41,
+      "adaptive_c": 8.0,
+      "morphology_kernel": 1,
+      "min_contour_area": 5.0
+    },
+    "quality": {
+      "precision": 0.8892025732401536,
+      "recall": 0.9995317864946416,
+      "f1": 0.941144774547503,
+      "iou": 0.8888323464100666,
+      "macro_f1": 0.9395624215845667
+    },
+    "timing": {
+      "mean_ms": 0.5349328000000001,
+      "p50_ms": 0.51675,
+      "p95_ms": 0.642775,
+      "throughput_ips": 1869.393688328702
+    },
+    "stages_ms": {
+      "resize": 0.0104912,
+      "grayscale": 0.02824,
+      "blur": 0.0236104,
+      "threshold": 0.39470879999999997,
+      "morphology": 0.008314400000000001,
+      "contours": 0.0389076,
+      "annotate": 0.030356400000000002
+    },
+    "samples": [
+      {
+        "id": "0000_clean",
+        "defect": "clean",
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "iou": 1.0,
+        "latency_ms": 0.8661
+      },
+      {
+        "id": "0001_scratch",
+        "defect": "scratch",
+        "precision": 0.9551056338028169,
+        "recall": 1.0,
+        "f1": 0.9770373705538046,
+        "iou": 0.9551056338028169,
+        "latency_ms": 0.6369
+      },
+      {
+        "id": "0002_crack",
+        "defect": "crack",
+        "precision": 0.8866498740554156,
+        "recall": 1.0,
+        "f1": 0.9399198931909212,
+        "iou": 0.8866498740554156,
+        "latency_ms": 0.5758
+      },
+      {
+        "id": "0003_pit",
+        "defect": "pit",
+        "precision": 0.9490445859872612,
+        "recall": 1.0,
+        "f1": 0.9738562091503268,
+        "iou": 0.9490445859872612,
+        "latency_ms": 0.9154
+      },
+      {
+        "id": "0004_blob",
+        "defect": "blob",
+        "precision": 0.9966887417218543,
+        "recall": 1.0,
+        "f1": 0.9983416252072969,
+        "iou": 0.9966887417218543,
+        "latency_ms": 0.7885
+      },
+      {
+        "id": "0005_clean",
+        "defect": "clean",
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "iou": 1.0,
+        "latency_ms": 0.5246
+      },
+      {
+        "id": "0006_scratch",
+        "defect": "scratch",
+        "precision": 0.9175531914893617,
+        "recall": 1.0,
+        "f1": 0.957004160887656,
+        "iou": 0.9175531914893617,
+        "latency_ms": 0.5489
+      },
+      {
+        "id": "0007_crack",
+        "defect": "crack",
+        "precision": 0.625560538116592,
+        "recall": 1.0,
+        "f1": 0.7696551724137931,
+        "iou": 0.625560538116592,
+        "latency_ms": 0.5877
+      },
+      {
+        "id": "0008_pit",
+        "defect": "pit",
+        "precision": 0.9819672131147541,
+        "recall": 1.0,
+        "f1": 0.9909015715467329,
+        "iou": 0.9819672131147541,
+        "latency_ms": 0.5352
+      },
+      {
+        "id": "0009_blob",
+        "defect": "blob",
+        "precision": 0.9961685823754789,
+        "recall": 1.0,
+        "f1": 0.9980806142034548,
+        "iou": 0.9961685823754789,
+        "latency_ms": 0.5354
+      },
+      {
+        "id": "0010_clean",
+        "defect": "clean",
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "iou": 1.0,
+        "latency_ms": 0.5802
+      },
+      {
+        "id": "0011_scratch",
+        "defect": "scratch",
+        "precision": 0.9635036496350365,
+        "recall": 1.0,
+        "f1": 0.9814126394052045,
+        "iou": 0.9635036496350365,
+        "latency_ms": 0.5334
+      },
+      {
+        "id": "0012_crack",
+        "defect": "crack",
+        "precision": 0.7288629737609329,
+        "recall": 1.0,
+        "f1": 0.8431703204047217,
+        "iou": 0.7288629737609329,
+        "latency_ms": 0.5119
+      },
+      {
+        "id": "0013_pit",
+        "defect": "pit",
+        "precision": 0.9653179190751445,
+        "recall": 1.0,
+        "f1": 0.9823529411764705,
+        "iou": 0.9653179190751445,
+        "latency_ms": 0.527
+      },
+      {
+        "id": "0014_blob",
+        "defect": "blob",
+        "precision": 0.9845360824742269,
+        "recall": 1.0,
+        "f1": 0.9922077922077922,
+        "iou": 0.9845360824742269,
+        "latency_ms": 0.5354
+      },
+      {
+        "id": "0015_clean",
+        "defect": "clean",
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "iou": 1.0,
+        "latency_ms": 0.4855
+      },
+      {
+        "id": "0016_scratch",
+        "defect": "scratch",
+        "precision": 0.7218045112781954,
+        "recall": 1.0,
+        "f1": 0.8384279475982532,
+        "iou": 0.7218045112781954,
+        "latency_ms": 0.5738
+      },
+      {
+        "id": "0017_crack",
+        "defect": "crack",
+        "precision": 0.32954545454545453,
+        "recall": 1.0,
+        "f1": 0.49572649572649574,
+        "iou": 0.32954545454545453,
+        "latency_ms": 0.5578
+      },
+      {
+        "id": "0018_pit",
+        "defect": "pit",
+        "precision": 0.9656992084432717,
+        "recall": 1.0,
+        "f1": 0.9825503355704698,
+        "iou": 0.9656992084432717,
+        "latency_ms": 0.5441
+      },
+      {
+        "id": "0019_blob",
+        "defect": "blob",
+        "precision": 0.998371335504886,
+        "recall": 1.0,
+        "f1": 0.9991850040749797,
+        "iou": 0.998371335504886,
+        "latency_ms": 0.5015
+      },
+      {
+        "id": "0020_clean",
+        "defect": "clean",
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "iou": 1.0,
+        "latency_ms": 0.4796
+      },
+      {
+        "id": "0021_scratch",
+        "defect": "scratch",
+        "precision": 0.9580498866213152,
+        "recall": 1.0,
+        "f1": 0.9785755645628257,
+        "iou": 0.9580498866213152,
+        "latency_ms": 0.5278
+      },
+      {
+        "id": "0022_crack",
+        "defect": "crack",
+        "precision": 0.5446428571428571,
+        "recall": 1.0,
+        "f1": 0.7052023121387283,
+        "iou": 0.5446428571428571,
+        "latency_ms": 0.5999
+      },
+      {
+        "id": "0023_pit",
+        "defect": "pit",
+        "precision": 0.8032786885245902,
+        "recall": 1.0,
+        "f1": 0.8909090909090909,
+        "iou": 0.8032786885245902,
+        "latency_ms": 0.4986
+      },
+      {
+        "id": "0024_blob",
+        "defect": "blob",
+        "precision": 0.9858267716535433,
+        "recall": 1.0,
+        "f1": 0.992862807295797,
+        "iou": 0.9858267716535433,
+        "latency_ms": 0.5034
+      },
+      {
+        "id": "0025_clean",
+        "defect": "clean",
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "iou": 1.0,
+        "latency_ms": 0.4699
+      },
+      {
+        "id": "0026_scratch",
+        "defect": "scratch",
+        "precision": 0.9329268292682927,
+        "recall": 1.0,
+        "f1": 0.9652996845425867,
+        "iou": 0.9329268292682927,
+        "latency_ms": 0.5158
+      },
+      {
+        "id": "0027_crack",
+        "defect": "crack",
+        "precision": 0.629086809470124,
+        "recall": 1.0,
+        "f1": 0.772318339100346,
+        "iou": 0.629086809470124,
+        "latency_ms": 0.5175
+      },
+      {
+        "id": "0028_pit",
+        "defect": "pit",
+        "precision": 0.9331306990881459,
+        "recall": 1.0,
+        "f1": 0.9654088050314465,
+        "iou": 0.9331306990881459,
+        "latency_ms": 0.4923
+      },
+      {
+        "id": "0029_blob",
+        "defect": "blob",
+        "precision": 0.9931707317073171,
+        "recall": 1.0,
+        "f1": 0.9965736661771905,
+        "iou": 0.9931707317073171,
+        "latency_ms": 0.5352
+      },
+      {
+        "id": "0030_clean",
+        "defect": "clean",
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "iou": 1.0,
+        "latency_ms": 0.5163
+      },
+      {
+        "id": "0031_scratch",
+        "defect": "scratch",
+        "precision": 0.9859571322985957,
+        "recall": 1.0,
+        "f1": 0.9929289170078154,
+        "iou": 0.9859571322985957,
+        "latency_ms": 0.5139
+      },
+      {
+        "id": "0032_crack",
+        "defect": "crack",
+        "precision": 0.9166666666666666,
+        "recall": 1.0,
+        "f1": 0.9565217391304348,
+        "iou": 0.9166666666666666,
+        "latency_ms": 0.4911
+      },
+      {
+        "id": "0033_pit",
+        "defect": "pit",
+        "precision": 0.6444444444444445,
+        "recall": 1.0,
+        "f1": 0.7837837837837838,
+        "iou": 0.6444444444444445,
+        "latency_ms": 0.5061
+      },
+      {
+        "id": "0034_blob",
+        "defect": "blob",
+        "precision": 0.997289972899729,
+        "recall": 1.0,
+        "f1": 0.9986431478968792,
+        "iou": 0.997289972899729,
+        "latency_ms": 0.5761
+      },
+      {
+        "id": "0035_clean",
+        "defect": "clean",
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "iou": 1.0,
+        "latency_ms": 0.4919
+      },
+      {
+        "id": "0036_scratch",
+        "defect": "scratch",
+        "precision": 0.9315206445115811,
+        "recall": 1.0,
+        "f1": 0.9645464025026069,
+        "iou": 0.9315206445115811,
+        "latency_ms": 0.4989
+      },
+      {
+        "id": "0037_crack",
+        "defect": "crack",
+        "precision": 0.88,
+        "recall": 1.0,
+        "f1": 0.9361702127659575,
+        "iou": 0.88,
+        "latency_ms": 0.4983
+      },
+      {
+        "id": "0038_pit",
+        "defect": "pit",
+        "precision": 0.9428571428571428,
+        "recall": 1.0,
+        "f1": 0.9705882352941176,
+        "iou": 0.9428571428571428,
+        "latency_ms": 0.5543
+      },
+      {
+        "id": "0039_blob",
+        "defect": "blob",
+        "precision": 0.9956709956709957,
+        "recall": 1.0,
+        "f1": 0.9978308026030369,
+        "iou": 0.9956709956709957,
+        "latency_ms": 0.5014
+      },
+      {
+        "id": "0040_clean",
+        "defect": "clean",
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "iou": 1.0,
+        "latency_ms": 0.4845
+      },
+      {
+        "id": "0041_scratch",
+        "defect": "scratch",
+        "precision": 0.9537712895377128,
+        "recall": 1.0,
+        "f1": 0.9763387297633873,
+        "iou": 0.9537712895377128,
+        "latency_ms": 0.5057
+      },
+      {
+        "id": "0042_crack",
+        "defect": "crack",
+        "precision": 0.7468123861566485,
+        "recall": 1.0,
+        "f1": 0.8550573514077163,
+        "iou": 0.7468123861566485,
+        "latency_ms": 0.5633
+      },
+      {
+        "id": "0043_pit",
+        "defect": "pit",
+        "precision": 0.7971014492753623,
+        "recall": 1.0,
+        "f1": 0.8870967741935484,
+        "iou": 0.7971014492753623,
+        "latency_ms": 0.5049
+      },
+      {
+        "id": "0044_blob",
+        "defect": "blob",
+        "precision": 0.9861932938856016,
+        "recall": 1.0,
+        "f1": 0.9930486593843099,
+        "iou": 0.9861932938856016,
+        "latency_ms": 0.4911
+      },
+      {
+        "id": "0045_clean",
+        "defect": "clean",
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "iou": 1.0,
+        "latency_ms": 0.4698
+      },
+      {
+        "id": "0046_scratch",
+        "defect": "scratch",
+        "precision": 0.7496790757381258,
+        "recall": 1.0,
+        "f1": 0.8569332355099046,
+        "iou": 0.7496790757381258,
+        "latency_ms": 0.561
+      },
+      {
+        "id": "0047_crack",
+        "defect": "crack",
+        "precision": 0.7374631268436578,
+        "recall": 1.0,
+        "f1": 0.8488964346349746,
+        "iou": 0.7374631268436578,
+        "latency_ms": 0.5217
+      },
+      {
+        "id": "0048_pit",
+        "defect": "pit",
+        "precision": 0.9609544468546638,
+        "recall": 1.0,
+        "f1": 0.9800884955752213,
+        "iou": 0.9609544468546638,
+        "latency_ms": 0.5426
+      },
+      {
+        "id": "0049_blob",
+        "defect": "blob",
+        "precision": 0.995475113122172,
+        "recall": 0.9898762654668166,
+        "f1": 0.9926677946982515,
+        "iou": 0.9854423292273237,
+        "latency_ms": 0.4995
+      }
+    ],
+    "failures": []
+  },
+  "redactions": [
+    "cv2_file: personal installation path"
+  ]
+}
