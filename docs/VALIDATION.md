@@ -1,5 +1,41 @@
 # Local engineering handoff — 2026-10-26
 
+## Community Cloud readiness update
+
+The Community Cloud deployment update passed **70 tests** in both the existing local
+runtime and a newly created, isolated Python 3.14.2 virtual environment. The fresh
+environment installed `requirements.txt` plus `requirements-dev.txt` and passed
+`python -m pip check`. Ruff lint and formatting passed; the AWS installer passed Bash
+syntax validation. Linux CI installs the same root requirements on Python 3.12 and 3.14.
+
+Coverage includes all four tab bodies, changing inspection samples, running the agent,
+invalidating stale approval state, handling malformed benchmark files, and a real
+Streamlit HTTP process serving both `/` and `/_stcore/health`. Existing CLI smoke tests
+exercise generation, evaluation, tuning, benchmarking, and missing-evidence reporting.
+The runtime verifier again reported OpenCV 4.13 and no verified OpenCV 5/COOL execution.
+
+Deployment changes are limited to the pinned root dependency manifest, platform-controlled
+bind address, an explicit demonstration label, deployment documentation, and regression
+checks. The UI layout is unchanged and no new graphs were added. The AWS installer,
+`requirements-app.txt`, and the systemd localhost binding are unchanged.
+
+Follow the README's **Deploy the demonstration on Streamlit Community Cloud** section:
+repository `Jeevang1-epic/COOLForge`, branch `main`, entrypoint `app.py`, Python **3.12**.
+No secrets are needed. The repository remains private; authorize Streamlit access using
+your GitHub account. Readiness is verified locally and by CI, but an actual Community
+Cloud deployment/URL has not been created or verified by this update.
+
+For the fresh-environment checks, after creating and activating a new virtual environment:
+
+```bash
+python -m pip install -r requirements.txt -r requirements-dev.txt
+python -m pip check
+python -m pytest -q --basetemp=results/pytest-community-clean
+python -m ruff check .
+python -m ruff format --check .
+python scripts/verify_cool.py --json results/community-environment.json
+```
+
 ## Verified locally
 
 Environment: Windows AMD64, Python 3.14.2, OpenCV 4.13.0, NumPy 2.4.1,

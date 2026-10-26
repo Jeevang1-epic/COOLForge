@@ -7,7 +7,7 @@ textColor = "#E9EEF3"
 font = "sans serif"
 
 [server]
-address = "127.0.0.1"
+# Let the hosting platform choose its bind address. AWS systemd explicitly uses localhost.
 maxUploadSize = 12
 headless = true
 

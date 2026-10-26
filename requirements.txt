@@ -1,0 +1,4 @@
+# Streamlit Community Cloud / standalone demonstration only.
+# Never install this file in the AWS COOL environment; use requirements-app.txt there.
+-r requirements-app.txt
+opencv-python-headless==4.13.0.90

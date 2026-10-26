@@ -18,7 +18,10 @@ if environment.cool_verified:
 elif environment.opencv5_verified:
     st.warning(environment.status)
 else:
-    st.error(environment.status + f" · Detected {environment.cv2_version}")
+    st.error(
+        environment.status + f" · Detected {environment.cv2_version}. "
+        "DEMONSTRATION — not verified OpenCV 5/COOL execution."
+    )
 st.caption("Local processing · No external model API · Human-approved configuration export")
 
 

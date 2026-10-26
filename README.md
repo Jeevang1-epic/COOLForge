@@ -63,6 +63,54 @@ Open [localhost:8501](http://localhost:8501). For the shortest interactive test,
 `0001_scratch`, run Autotune on 15 samples, and read both accepted and rejected rows.
 The red/amber/green environment card always reflects the runtime checks.
 
+## Deploy the demonstration on Streamlit Community Cloud
+
+This deployment runs **OpenCV 4.13 headless as a demonstration**. It does not run on
+the AWS COOL AMI and does not verify OpenCV 5, COOL, or Graviton performance. The app
+keeps its runtime evidence card and explicitly labels this unsupported-major runtime
+as a demonstration. The existing four tabs and inspection/tuning workflow are unchanged.
+
+1. Sign in at [Streamlit Community Cloud](https://share.streamlit.io/) using your GitHub account.
+   Authorize access to the private `Jeevang1-epic/COOLForge` repository when requested;
+   it does not need to be made public. You need repository admin access.
+2. Choose **Create app**, then **Yup, I have an app**.
+3. Set **Repository** to `Jeevang1-epic/COOLForge`, **Branch** to `main`, and
+   **Main file path** to `app.py`. Alternatively paste
+   `https://github.com/Jeevang1-epic/COOLForge/blob/main/app.py`.
+4. Open **Advanced settings**, select **Python 3.12**, and save. No secrets, AWS keys,
+   model API keys, or build/start command overrides are required.
+5. Choose an available app subdomain and click **Deploy**. The root `requirements.txt`
+   installs pinned app dependencies plus `opencv-python-headless==4.13.0.90`.
+6. Once running, check all four tabs: inspect a built-in sample; run Autotune with
+   two iterations first; confirm Benchmarks reports absent stock/COOL evidence; and
+   open Architecture & Reproducibility. The demo must not show COOL VERIFIED.
+
+The platform controls the server bind address and port. AWS still binds explicitly to
+localhost in its unchanged systemd service. Headless OpenCV needs no GUI packages or
+`packages.txt`. Built-in images are generated in memory; no pre-generated data directory
+or persistent storage is required. Use small tuning subsets on shared demo resources.
+Download approved configurations and traces before restarting a session.
+
+To reproduce the deployment's Python dependencies in a fresh local virtual environment:
+
+```bash
+python -m pip install -r requirements.txt
+python -m pip check
+python -m streamlit run app.py --server.address 127.0.0.1
+```
+
+**AWS separation:** never run `pip install -r requirements.txt` inside the COOL runtime.
+Its installer continues to use `requirements-app.txt`, which deliberately excludes
+OpenCV. Do not add another OpenCV wheel alongside the headless package in the cloud demo.
+If installation fails, confirm Python 3.12 and inspect the Community Cloud build logs;
+if the private repo is missing, reconnect/authorize the correct GitHub account. A red
+development runtime card is expected and is not a deployment failure. Benchmark files
+are optional, and unavailable cloud evidence is reported honestly.
+
+See Streamlit's [deployment instructions](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/deploy),
+[dependency-file guidance](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/app-dependencies),
+and [private-repository access requirements](https://docs.streamlit.io/deploy/streamlit-community-cloud/status).
+
 ## Agent loop
 
 ```mermaid

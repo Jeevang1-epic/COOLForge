@@ -25,10 +25,10 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
           cache: pip
-      - name: Install local development runtime (not COOL)
+      - name: Install pinned Community Cloud demo runtime (not COOL)
         run: |
-          python -m pip install -r requirements-dev.txt
-          python -m pip install '.[local]'
+          python -m pip install -r requirements.txt -r requirements-dev.txt
+          python -m pip check
       - name: Lint and format
         run: |
           python -m ruff check .
