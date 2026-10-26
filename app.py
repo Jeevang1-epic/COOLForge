@@ -5,6 +5,7 @@ import streamlit as st
 from coolforge.dataset import generate_samples
 from coolforge.environment import inspect_environment
 from coolforge.ui.inspection import configuration_controls, render_inspection
+from coolforge.ui.tuning import render_tuning
 
 st.set_page_config(page_title="COOLForge · OpenCV performance workbench", layout="wide")
 st.title("COOLForge")
@@ -27,4 +28,8 @@ def demo_samples():
 
 samples = demo_samples()
 config = configuration_controls()
-render_inspection(samples, config)
+inspect_tab, tune_tab = st.tabs(["INSPECT", "AUTOTUNE AGENT"])
+with inspect_tab:
+    render_inspection(samples, config)
+with tune_tab:
+    render_tuning(samples, config)
