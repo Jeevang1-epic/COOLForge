@@ -3,6 +3,11 @@ on:
   push:
   pull_request:
   workflow_dispatch:
+    inputs:
+      upload_evidence:
+        description: Retain raw evidence (requires available account artifact storage)
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -11,6 +16,7 @@ jobs:
   local-development:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         python: ['3.12', '3.14']
     steps:
@@ -36,7 +42,32 @@ jobs:
           python scripts/generate_dataset.py --output data/ci --count 5 --width 96 --height 64
           python scripts/verify_cool.py --json results/environment.json
           python scripts/benchmark_worker.py --dataset data/ci --warmups 1 --iterations 2 --output results/local.json
-      - uses: actions/upload-artifact@v4
+      - name: Publish measurements in the run summary
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          result = json.loads(Path('results/local.json').read_text())
+          env = result['environment']
+          lines = [
+              '## Local development measurement',
+              f"Python {env['python_version']}; OpenCV {env['cv2_version']}; {env['machine']}",
+              f"COOL verified: {env['cool_verified']}. This is not a COOL baseline.",
+              '', '| Metric | Value |', '|---|---:|',
+          ]
+          for group in ('quality', 'timing'):
+              for key, value in result['evaluation'][group].items():
+                  lines.append(f'| {key} | {value:.6f} |')
+          lines.extend(['', f"Source: `{result['source_sha256']}`",
+                        f"Dataset: `{result['dataset_sha256']}`",
+                        'Raw artifacts are opt-in on manual runs to conserve account storage.'])
+          Path(os.environ['GITHUB_STEP_SUMMARY']).write_text('\n'.join(lines))
+          PY
+      - name: Retain raw evidence when requested
+        if: github.event_name == 'workflow_dispatch' && inputs.upload_evidence
+        uses: actions/upload-artifact@v4
         with:
           name: local-dev-evidence-${{ matrix.python }}
           path: results/
+          retention-days: 3

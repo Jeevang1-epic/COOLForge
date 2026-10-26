@@ -76,6 +76,11 @@ stock/COOL comparative performance, Nginx/systemd execution on Linux, production
 accuracy, a public demo endpoint, or a recorded submission video. CI execution status
 belongs to GitHub Actions and is separate from this recorded local validation.
 
+CI always publishes compact measurement summaries. Raw artifact upload is an opt-in
+manual-run input with three-day retention. The initial automatic upload encountered
+the account's existing storage quota; no existing artifacts were deleted. Tests remain
+mandatory regardless of artifact retention, and matrix jobs finish independently.
+
 ## Five priority review files
 
 1. [README.md](../README.md): setup and evidence status.
