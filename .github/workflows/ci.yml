@@ -1,0 +1,42 @@
+name: checks
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  local-development:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.12', '3.14']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+      - name: Install local development runtime (not COOL)
+        run: |
+          python -m pip install -r requirements-dev.txt
+          python -m pip install '.[local]' --no-build-isolation
+      - name: Lint and format
+        run: |
+          python -m ruff check .
+          python -m ruff format --check .
+      - name: Test core, CLI, and app interactions
+        run: python -m pytest -q
+      - name: Check deployment script syntax
+        run: bash -n deploy/aws/install_on_cool_ami.sh
+      - name: Smoke benchmark and runtime evidence
+        run: |
+          python scripts/generate_dataset.py --output data/ci --count 5 --width 96 --height 64
+          python scripts/verify_cool.py --json results/environment.json
+          python scripts/benchmark_worker.py --dataset data/ci --warmups 1 --iterations 2 --output results/local.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: local-dev-evidence-${{ matrix.python }}
+          path: results/
