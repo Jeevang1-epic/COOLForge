@@ -1,0 +1,23 @@
+[Unit]
+Description=COOLForge OpenCV inspection workbench
+After=network.target
+
+[Service]
+Type=simple
+User=coolforge
+Group=coolforge
+WorkingDirectory=/srv/coolforge
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONDONTWRITEBYTECODE=1
+ExecStart=/opt/cool/venvs/python_3.12/bin/python -m streamlit run app.py --server.address 127.0.0.1 --server.port 8501
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/srv/coolforge/results
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target
