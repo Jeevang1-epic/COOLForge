@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "coolforge"
+version = "0.1.0"
+description = "Auditable, quality-constrained optimization of OpenCV inspection pipelines"
+requires-python = ">=3.12"
+license = "Apache-2.0"
+dependencies = ["numpy>=2.0,<3", "PyYAML>=6,<7", "streamlit>=1.53,<2"]
+
+[project.optional-dependencies]
+dev = ["pytest>=9,<10", "ruff>=0.14,<1"]
+local = ["opencv-python-headless==4.13.0.90"]
+
+[tool.setuptools.packages.find]
+include = ["coolforge*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
