@@ -1,0 +1,6 @@
+processing_scale: 1.0
+blur_kernel: 3
+adaptive_block_size: 41
+adaptive_c: 8.0
+morphology_kernel: 1
+min_contour_area: 5.0
