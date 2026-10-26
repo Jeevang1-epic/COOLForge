@@ -140,6 +140,21 @@ def validate_artifact(value: dict) -> dict:
         for key in ("cv2_version", "python_version", "machine"):
             if not isinstance(value["environment"][key], str):
                 raise ValueError(f"Invalid environment field: {key}")
+        env = value["environment"]
+        if env["opencv5_verified"] != (env["cv2_version"].split(".")[0] == "5"):
+            raise ValueError("OpenCV version contradicts verification flag")
+        if env["architecture_arm64"] != (env["machine"].lower() in {"arm64", "aarch64"}):
+            raise ValueError("Architecture contradicts verification flag")
+        if env["cool_verified"]:
+            verified = inspect_environment(
+                version=env["cv2_version"],
+                module_path=env["cv2_file"],
+                machine=env["machine"],
+                build="\n".join(env["build_excerpt"]),
+                cool_exists=env["cool_root_exists"],
+            )
+            if not verified.cool_verified:
+                raise ValueError("COOL flag is unsupported by its recorded evidence")
         if not isinstance(value["host"]["processor"], str):
             raise ValueError("Invalid processor metadata")
     except (KeyError, TypeError) as exc:

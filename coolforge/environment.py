@@ -70,11 +70,17 @@ def inspect_environment(
         )
     ]
     # SVE/NEON alone are generic Arm features; require an affirmative custom backend.
-    accelerated = any(
-        re.search(r"(kleidicv|custom hal)\s*[:=].*", line, re.I)
-        and not re.search(r":\s*(no|none|off|false|disabled|n/a)\b", line, re.I)
-        for line in excerpt
-    )
+    accelerated = False
+    for line in excerpt:
+        marker = re.search(r"(kleidicv|custom hal)\s*[:=]\s*(.*)", line, re.I)
+        if (
+            marker
+            and marker.group(2).strip()
+            and not re.search(
+                r"\b(no|none|off|false|disabled|unavailable|n/a)\b", marker.group(2), re.I
+            )
+        ):
+            accelerated = True
     checks = {
         "OpenCV major version 5": opencv5,
         "Arm64 architecture": arm,

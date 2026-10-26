@@ -31,6 +31,9 @@ def test_corroborated_evidence():
         {"build": "CPU: SVE NEON"},
         {"build": "Custom HAL: NO"},
         {"build": "Custom HAL: disabled"},
+        {"build": "Custom HAL:"},
+        {"build": "Custom HAL = NO"},
+        {"build": "KleidiCV: unavailable"},
     ],
 )
 def test_weak_evidence_never_verifies(change):

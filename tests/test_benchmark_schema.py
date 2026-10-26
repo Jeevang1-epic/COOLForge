@@ -22,6 +22,13 @@ def pair(measurement):
         value["environment"].update(
             opencv5_verified=True, architecture_arm64=True, cool_verified=name == "cool"
         )
+        value["environment"].update(
+            cv2_version="5.0.0",
+            machine="aarch64",
+            cool_root_exists=True,
+            cv2_file="/opt/cool/cv2.so" if name == "cool" else "/stock/cv2.so",
+            build_excerpt=["Custom HAL: KleidiCV"],
+        )
     return stock, cool
 
 
@@ -73,3 +80,11 @@ def test_version_mismatch_blocks_speedup(measurement):
     stock, cool = pair(measurement)
     cool["environment"]["cv2_version"] = "5.1.0-dev"
     assert not compare(stock, cool)["comparable"]
+
+
+def test_contradictory_verification_is_rejected(measurement):
+    measurement["environment"]["opencv5_verified"] = not measurement["environment"][
+        "opencv5_verified"
+    ]
+    with pytest.raises(ValueError, match="contradicts"):
+        validate_artifact(measurement)
