@@ -7,10 +7,10 @@ It profiles real image processing, tests concrete parameter changes against exac
 defect masks, rolls back quality regressions, and asks a human to approve the final
 configuration. The target runtime is OpenCV 5 with COOL on AWS Graviton.
 
-**Evidence status:** the checked-in demonstration runs on local OpenCV 4.13, not COOL.
-OpenCV 5/COOL verification, AWS execution, and a matched stock/COOL comparison remain
-operator steps. There is no claimed cloud speedup. See the actual
-[local measurements and trace](docs/assets/LOCAL_RESULTS.md).
+**Project status:** the demo uses OpenCV 4.13. OpenCV 5/COOL on AWS Graviton is
+the target deployment; verified cloud measurements are not yet available.
+[Recorded local results](docs/assets/LOCAL_RESULTS.md) include synthetic quality scores,
+latency measurements, and an agent trace.
 
 ![Actual synthetic inspection: surface, ground truth, prediction, detections](docs/assets/inspection-contact-sheet.png)
 
@@ -32,84 +32,81 @@ No model API key, database, or downloaded dataset is required. The agent is an e
 heuristic policy, not an LLM wrapper. Its decisions are deterministic given observations;
 real timing noise can alter its trajectory.
 
-## Quickstart
+## Try it locally
 
-Use Python 3.12 or newer. In a **new local environment**:
+Python 3.12 or newer is required. Clone the repository and create a virtual environment:
 
 ```bash
+git clone https://github.com/Jeevang1-epic/COOLForge.git
+cd COOLForge
 python -m venv .venv
-# Linux/macOS:
-source .venv/bin/activate
-# Windows PowerShell instead:
-# .\.venv\Scripts\Activate.ps1
-python -m pip install -r requirements-dev.txt
-python -m pip install -e '.[local]'
-python scripts/generate_dataset.py --output data/eval --count 50
-python scripts/evaluate.py --dataset data/eval
-python scripts/autotune.py --dataset data/eval --max-iterations 12
-python scripts/verify_cool.py --json results/environment.json
-python -m pytest -q
-python -m streamlit run app.py
 ```
 
-The `local` extra deliberately installs a pinned OpenCV 4.13 development wheel. It is
-**not competition-compliant**. If you already have a suitable `cv2`, install application
-requirements and use `python -m pip install --no-deps -e .` instead. Never use `.[local]`
-on the COOL AMI. Dataset generation refuses to overwrite an existing manifest; reuse
-the dataset or select another output directory. The app also generates a built-in set
-in memory and can start without running the dataset CLI first.
-
-Open [localhost:8501](http://localhost:8501). For the shortest interactive test, inspect
-`0001_scratch`, run Autotune on 15 samples, and read both accepted and rejected rows.
-The red/amber/green environment card always reflects the runtime checks.
-
-## Deploy the demonstration on Streamlit Community Cloud
-
-This deployment runs **OpenCV 4.13 headless as a demonstration**. It does not run on
-the AWS COOL AMI and does not verify OpenCV 5, COOL, or Graviton performance. The app
-keeps its runtime evidence card and explicitly labels this unsupported-major runtime
-as a demonstration. The existing four tabs and inspection/tuning workflow are unchanged.
-
-1. Sign in at [Streamlit Community Cloud](https://share.streamlit.io/) using your GitHub account.
-   Authorize access to the private `Jeevang1-epic/COOLForge` repository when requested;
-   it does not need to be made public. You need repository admin access.
-2. Choose **Create app**, then **Yup, I have an app**.
-3. Set **Repository** to `Jeevang1-epic/COOLForge`, **Branch** to `main`, and
-   **Main file path** to `app.py`. Alternatively paste
-   `https://github.com/Jeevang1-epic/COOLForge/blob/main/app.py`.
-4. Open **Advanced settings**, select **Python 3.12**, and save. No secrets, AWS keys,
-   model API keys, or build/start command overrides are required.
-5. Choose an available app subdomain and click **Deploy**. The root `requirements.txt`
-   installs pinned app dependencies plus `opencv-python-headless==4.13.0.90`.
-6. Once running, check all four tabs: inspect a built-in sample; run Autotune with
-   two iterations first; confirm Benchmarks reports absent stock/COOL evidence; and
-   open Architecture & Reproducibility. The demo must not show COOL VERIFIED.
-
-The platform controls the server bind address and port. AWS still binds explicitly to
-localhost in its unchanged systemd service. Headless OpenCV needs no GUI packages or
-`packages.txt`. Built-in images are generated in memory; no pre-generated data directory
-or persistent storage is required. Use small tuning subsets on shared demo resources.
-Download approved configurations and traces before restarting a session.
-
-To reproduce the deployment's Python dependencies in a fresh local virtual environment:
+Activate the environment with `source .venv/bin/activate` on Linux/macOS or
+`.\.venv\Scripts\Activate.ps1` in Windows PowerShell. Then install and launch:
 
 ```bash
 python -m pip install -r requirements.txt
-python -m pip check
 python -m streamlit run app.py --server.address 127.0.0.1
 ```
 
-**AWS separation:** never run `pip install -r requirements.txt` inside the COOL runtime.
-Its installer continues to use `requirements-app.txt`, which deliberately excludes
-OpenCV. Do not add another OpenCV wheel alongside the headless package in the cloud demo.
-If installation fails, confirm Python 3.12 and inspect the Community Cloud build logs;
-if the private repo is missing, reconnect/authorize the correct GitHub account. A red
-development runtime card is expected and is not a deployment failure. Benchmark files
-are optional, and unavailable cloud evidence is reported honestly.
+Open [localhost:8501](http://localhost:8501). Built-in samples are generated automatically;
+no dataset download, credentials, or model API key is needed.
 
-See Streamlit's [deployment instructions](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/deploy),
-[dependency-file guidance](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/app-dependencies),
-and [private-repository access requirements](https://docs.streamlit.io/deploy/streamlit-community-cloud/status).
+Start in **Inspect** to compare a surface with its exact defect mask. **Autotune Agent**
+explores parameter changes and explains which candidates were accepted or rejected.
+The final proposal includes held-out quality scores and a configuration download.
+**Benchmarks** compares compatible measurement files, while **Architecture & Reproducibility**
+explains the workload and reproduction commands.
+
+The local demo uses headless OpenCV 4.13. For an existing OpenCV installation, use
+`requirements-app.txt` instead. AWS COOL has its own [installation procedure](deploy/aws/README.md)
+that preserves the vendor-provided OpenCV build.
+
+## Host a demo on Streamlit Community Cloud
+
+Community Cloud provides a shareable version of the inspection and tuning workbench.
+It uses OpenCV 4.13; it is not a verified OpenCV 5/COOL or Graviton benchmark environment.
+
+To host a personal copy, fork this repository and open
+[Streamlit Community Cloud](https://share.streamlit.io/). Choose **Create app** and select
+these settings for the fork:
+
+| Setting | Value |
+|---|---|
+| Repository | `YOUR_GITHUB_USERNAME/COOLForge` |
+| Branch | `main` |
+| Main file path | `app.py` |
+| Python version (Advanced settings) | `3.12` |
+| Secrets | None |
+
+Repository owners deploying the upstream project can use `Jeevang1-epic/COOLForge`.
+The Repository field takes `owner/repository` **without `.git`**. Alternatively, **Paste
+GitHub URL** accepts the entrypoint URL, such as
+`https://github.com/Jeevang1-epic/COOLForge/blob/main/app.py`.
+Select the exact `app.py` suggestion and verify the fields before clicking **Deploy**.
+
+The root `requirements.txt` supplies pinned dependencies. Built-in data is generated
+in memory, and the demo needs no external services. A small tuning subset is suitable
+for shared hosting. Approved configurations and traces can be downloaded for later use;
+session state is temporary.
+
+### Deployment troubleshooting
+
+| Symptom | Check |
+|---|---|
+| Repository does not exist | Use `owner/COOLForge`, without a `.git` suffix; confirm GitHub access to that repository. |
+| Branch does not exist | Select `main` after the repository has been recognized. |
+| Main file missing or an import error from an internal module | Select root `app.py`, not a file under `coolforge/`. |
+| Private repository is not listed | Authorize the repository in the connected GitHub account; deployment requires admin access. |
+| Red development-runtime message | Expected for the OpenCV 4.13 demo; inspection and tuning remain available. |
+| No stock/COOL comparison | Upload compatible measurement artifacts; the demo does not ship with verified cloud results. |
+
+For AWS installations, use `requirements-app.txt` through the COOL installer. The demo's
+`requirements.txt` includes an OpenCV wheel and is not intended for the vendor environment.
+
+Further reading: Streamlit's [deployment guide](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/deploy)
+and [repository access requirements](https://docs.streamlit.io/deploy/streamlit-community-cloud/status).
 
 ## Agent loop
 
@@ -154,6 +151,15 @@ This is conservative build verification, not proof of acceleration in every oper
 
 ## Benchmark reproduction
 
+Generate a reproducible dataset before running the command-line benchmarks:
+
+```bash
+python scripts/generate_dataset.py --output data/eval --count 50 --seed 42
+python scripts/evaluate.py --dataset data/eval
+```
+
+An existing dataset can be reused; generation does not overwrite its manifest.
+
 ```bash
 # A real local measurement, never labeled a stock OpenCV 5 baseline:
 python scripts/benchmark_worker.py --name local --dataset data/eval --warmups 5 --iterations 30 --output results/local.json
@@ -166,9 +172,12 @@ hashes, configuration, host, thread settings, budgets, and runtime versions. Mis
 mismatched inputs produce a reason, not a ratio. Read [BENCHMARKS.md](BENCHMARKS.md)
 before interpreting latency or throughput.
 
-## Tests and project map
+## Development and tests
+
+Install the development tools in the same virtual environment:
 
 ```bash
+python -m pip install -r requirements-dev.txt
 python -m pytest -q
 python -m ruff check .
 python -m ruff format --check .
@@ -201,15 +210,14 @@ The core sends no image to an external AI service. Public demos should use nonse
 images, restricted access, and appropriate transport protection. Export requires human
 action and does not deploy a workload. See [responsible use](docs/RESPONSIBLE_USE.md).
 
-## Next evidence milestones
+## Roadmap
 
-1. Run the supplied workload and strict verifier on OpenCV 5/COOL on Graviton.
-2. Record repeated matched stock/COOL pairs and report quality parity and uncertainty.
-3. Evaluate real labeled surfaces and per-defect failure rates.
-4. Consider optional MCP adapters only after the core evidence is complete.
+- Verified OpenCV 5/COOL execution and repeated stock/COOL comparisons on Graviton.
+- Evaluation on real labeled surfaces, including rare and small defects.
+- Optional MCP adapters for the tested inspection and optimization tools.
 
 ## Contributing and license
 
 See [CONTRIBUTING.md](CONTRIBUTING.md). Code and generated synthetic examples are
-licensed under [Apache-2.0](LICENSE). Suggested repository topics: `opencv`, `computer-vision`,
-`aws-graviton`, `performance`, `visual-inspection`, `streamlit`, `agentic-vision`.
+licensed under [Apache-2.0](LICENSE). Bug reports, reproducible benchmark results, and
+improvements to the inspection workflow are welcome.
