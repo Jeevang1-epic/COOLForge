@@ -19,8 +19,11 @@ def parser(description: str) -> argparse.ArgumentParser:
 def write_json(path: str | Path, value: object) -> None:
     target = Path(path)
     target.parent.mkdir(parents=True, exist_ok=True)
-    target.write_text(json.dumps(asdict(value) if is_dataclass(value) else value,
-                                 indent=2, allow_nan=False) + "\n", encoding="utf-8")
+    target.write_text(
+        json.dumps(asdict(value) if is_dataclass(value) else value, indent=2, allow_nan=False)
+        + "\n",
+        encoding="utf-8",
+    )
 
 
 def run(main) -> None:

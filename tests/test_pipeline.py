@@ -17,7 +17,14 @@ def test_pipeline_shapes_timings(scale):
     assert result.annotated_bgr.shape == sample.image.shape
     assert result.detections
     assert set(result.stages_ms) == {
-        "resize", "grayscale", "blur", "threshold", "morphology", "contours", "annotate"}
+        "resize",
+        "grayscale",
+        "blur",
+        "threshold",
+        "morphology",
+        "contours",
+        "annotate",
+    }
     assert all(value >= 0 for value in result.stages_ms.values())
     assert result.latency_ms >= sum(result.stages_ms.values())
     np.testing.assert_array_equal(sample.image, original)
@@ -34,6 +41,7 @@ def test_clean_and_invalid_images():
 def test_opencv_failure(monkeypatch):
     def fail(*args, **kwargs):
         raise cv2.error("test failure")
+
     monkeypatch.setattr(cv2, "resize", fail)
     with pytest.raises(PipelineError):
         inspect(generate_samples(1)[0].image)

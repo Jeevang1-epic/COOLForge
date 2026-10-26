@@ -49,9 +49,14 @@ def snapshot(result: EvaluationResult) -> dict[str, Any]:
 class PipelineOptimizationAgent:
     """Policy is deterministic given observations; measured timing is naturally noisy."""
 
-    def __init__(self, quality_floor: float = 0.85, max_iterations: int = 12,
-                 latency_target_ms: float | None = None, min_speed_gain: float = 0.03,
-                 evaluator: Callable | None = None) -> None:
+    def __init__(
+        self,
+        quality_floor: float = 0.85,
+        max_iterations: int = 12,
+        latency_target_ms: float | None = None,
+        min_speed_gain: float = 0.03,
+        evaluator: Callable | None = None,
+    ) -> None:
         if not 0 <= quality_floor <= 1 or not 1 <= max_iterations <= 100:
             raise ValueError("Quality floor must be in [0, 1]; iteration budget in [1, 100]")
         if latency_target_ms is not None and not 0 < latency_target_ms < float("inf"):
@@ -64,8 +69,9 @@ class PipelineOptimizationAgent:
         self.min_speed_gain = min_speed_gain
         self.evaluator = evaluator or (lambda s, c: evaluate(s, c, repetitions=3, warmups=1))
 
-    def decide(self, current: EvaluationResult, tried: set[PipelineConfig],
-               last: EvaluationResult | None) -> tuple[PipelineConfig, str, str] | None:
+    def decide(
+        self, current: EvaluationResult, tried: set[PipelineConfig], last: EvaluationResult | None
+    ) -> tuple[PipelineConfig, str, str] | None:
         # A failed scale experiment changes the next branch, even after rollback.
         if last is not None and last.quality["recall"] < self.quality_floor:
             order = ("adaptive_c", "blur_kernel", "adaptive_block_size", "processing_scale")
@@ -77,27 +83,37 @@ class PipelineOptimizationAgent:
             order = ("adaptive_block_size", "adaptive_c", "blur_kernel", "min_contour_area")
             reason = "Incumbent is infeasible; recover foreground quality first"
         else:
-            order = ("processing_scale", "blur_kernel", "adaptive_block_size",
-                     "morphology_kernel", "min_contour_area", "adaptive_c")
+            order = (
+                "processing_scale",
+                "blur_kernel",
+                "adaptive_block_size",
+                "morphology_kernel",
+                "min_contour_area",
+                "adaptive_c",
+            )
             reason = "Quality floor is satisfied; probe a cheaper pipeline"
         for field in order:
             values = list(SPACE[field])
             old = getattr(current.config, field)
             if field == "adaptive_c":
                 noisy = current.quality["precision"] < self.quality_floor
-                values.sort(key=lambda v: (not (v > old if noisy else v < old), abs(v-old)))
+                values.sort(key=lambda v: (not (v > old if noisy else v < old), abs(v - old)))
             elif field == "processing_scale":
-                values.sort(key=lambda v: (v >= old, abs(v-old)))
+                values.sort(key=lambda v: (v >= old, abs(v - old)))
             else:
-                values.sort(key=lambda v: abs(v-old))
+                values.sort(key=lambda v: abs(v - old))
             for value in values:
                 candidate = replace(current.config, **{field: value})
                 if candidate not in tried:
                     return candidate, f"{field}: {old} -> {value}", reason
         return None
 
-    def run(self, samples: list[Sample], config: PipelineConfig | None = None,
-            on_step: Callable[[AgentTraceEntry], None] | None = None) -> AgentResult:
+    def run(
+        self,
+        samples: list[Sample],
+        config: PipelineConfig | None = None,
+        on_step: Callable[[AgentTraceEntry], None] | None = None,
+    ) -> AgentResult:
         initial = self.evaluator(samples, config or PipelineConfig())
         current, last = initial, None
         trace: list[AgentTraceEntry] = []
@@ -105,12 +121,15 @@ class PipelineOptimizationAgent:
         observed = [initial] if initial.valid else []
         stop = "iteration_limit"
         if not initial.valid:
-            return AgentResult(initial, initial, [], "initial_evaluation_failed",
-                               self.quality_floor, False, [])
+            return AgentResult(
+                initial, initial, [], "initial_evaluation_failed", self.quality_floor, False, []
+            )
         for iteration in range(1, self.max_iterations + 1):
-            if (current.quality["f1"] >= self.quality_floor
-                    and self.latency_target_ms is not None
-                    and current.timing["p50_ms"] <= self.latency_target_ms):
+            if (
+                current.quality["f1"] >= self.quality_floor
+                and self.latency_target_ms is not None
+                and current.timing["p50_ms"] <= self.latency_target_ms
+            ):
                 stop = "objective_met"
                 break
             decision = self.decide(current, tried, last)
@@ -119,8 +138,10 @@ class PipelineOptimizationAgent:
                 break
             candidate, action, rationale = decision
             tried.add(candidate)
-            observation = {"incumbent": snapshot(current),
-                           "previous_candidate": snapshot(last) if last else None}
+            observation = {
+                "incumbent": snapshot(current),
+                "previous_candidate": snapshot(last) if last else None,
+            }
             failure, result, accepted = None, None, False
             try:
                 result = self.evaluator(samples, candidate)
@@ -131,18 +152,31 @@ class PipelineOptimizationAgent:
                     failure = "Quality floor violated; incumbent retained"
                 else:
                     faster = result.timing["p50_ms"] < (
-                        current.timing["p50_ms"] * (1 - self.min_speed_gain))
+                        current.timing["p50_ms"] * (1 - self.min_speed_gain)
+                    )
                     quality_gain = result.quality["f1"] > current.quality["f1"] + 0.005
-                    accepted = (current.quality["f1"] < self.quality_floor or faster
-                                or (quality_gain and result.timing["p50_ms"]
-                                    <= current.timing["p50_ms"] * 1.02))
+                    accepted = (
+                        current.quality["f1"] < self.quality_floor
+                        or faster
+                        or (
+                            quality_gain
+                            and result.timing["p50_ms"] <= current.timing["p50_ms"] * 1.02
+                        )
+                    )
                 if result.valid:
                     observed.append(result)
             except (ValueError, PipelineError) as exc:
                 failure = str(exc)
-            entry = AgentTraceEntry(iteration, observation, action, rationale,
-                                    candidate.to_dict(), snapshot(result) if result else None,
-                                    accepted, failure)
+            entry = AgentTraceEntry(
+                iteration,
+                observation,
+                action,
+                rationale,
+                candidate.to_dict(),
+                snapshot(result) if result else None,
+                accepted,
+                failure,
+            )
             trace.append(entry)
             if accepted:
                 current = result
@@ -151,10 +185,26 @@ class PipelineOptimizationAgent:
         feasible = current.quality["f1"] >= self.quality_floor
         if not feasible and stop == "iteration_limit":
             stop = "quality_floor_unmet"
-        frontier = [r for r in observed if r.quality["f1"] >= self.quality_floor and not any(
-            other.quality["f1"] >= r.quality["f1"] and
-            other.timing["p50_ms"] <= r.timing["p50_ms"] and
-            (other.quality["f1"] > r.quality["f1"] or
-             other.timing["p50_ms"] < r.timing["p50_ms"]) for other in observed)]
-        return AgentResult(initial, current, trace, stop, self.quality_floor, feasible,
-                           [{"config": r.config.to_dict(), **snapshot(r)} for r in frontier])
+        frontier = [
+            r
+            for r in observed
+            if r.quality["f1"] >= self.quality_floor
+            and not any(
+                other.quality["f1"] >= r.quality["f1"]
+                and other.timing["p50_ms"] <= r.timing["p50_ms"]
+                and (
+                    other.quality["f1"] > r.quality["f1"]
+                    or other.timing["p50_ms"] < r.timing["p50_ms"]
+                )
+                for other in observed
+            )
+        ]
+        return AgentResult(
+            initial,
+            current,
+            trace,
+            stop,
+            self.quality_floor,
+            feasible,
+            [{"config": r.config.to_dict(), **snapshot(r)} for r in frontier],
+        )

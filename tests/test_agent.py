@@ -10,10 +10,19 @@ from coolforge.pipeline import PipelineError
 
 
 def observation(config, f1=0.95, latency=10, recall=None, precision=None):
-    return EvaluationResult(config, {"f1": f1, "iou": f1,
-                                     "recall": f1 if recall is None else recall,
-                                     "precision": f1 if precision is None else precision},
-                            {"p50_ms": latency, "mean_ms": latency}, {}, [{"id": "test"}], [])
+    return EvaluationResult(
+        config,
+        {
+            "f1": f1,
+            "iou": f1,
+            "recall": f1 if recall is None else recall,
+            "precision": f1 if precision is None else precision,
+        },
+        {"p50_ms": latency, "mean_ms": latency},
+        {},
+        [{"id": "test"}],
+        [],
+    )
 
 
 def test_closed_loop_rejects_and_changes_next_decision():
@@ -50,8 +59,9 @@ def test_objective_and_infeasible_stops():
     agent = PipelineOptimizationAgent(latency_target_ms=15, evaluator=lambda s, c: observation(c))
     result = agent.run([])
     assert result.stop_reason == "objective_met" and not result.trace
-    agent = PipelineOptimizationAgent(max_iterations=2,
-                                      evaluator=lambda s, c: observation(c, f1=0.3))
+    agent = PipelineOptimizationAgent(
+        max_iterations=2, evaluator=lambda s, c: observation(c, f1=0.3)
+    )
     result = agent.run([])
     assert result.stop_reason == "quality_floor_unmet" and not result.feasible
     assert not any(entry.accepted for entry in result.trace)
@@ -62,6 +72,7 @@ def test_failed_candidate_retains_incumbent():
         if config != PipelineConfig():
             raise PipelineError("deliberate failure")
         return observation(config)
+
     result = PipelineOptimizationAgent(max_iterations=2, evaluator=evaluator).run([])
     assert result.final == result.initial
     assert all(entry.failure == "deliberate failure" for entry in result.trace)
@@ -77,11 +88,16 @@ def test_real_agent_invokes_opencv():
 def test_initial_failure_stops():
     def evaluator(samples, config):
         return replace(observation(config), failures=[{"error": "bad sample"}])
-    assert PipelineOptimizationAgent(evaluator=evaluator).run([]).stop_reason == "initial_evaluation_failed"
+
+    assert (
+        PipelineOptimizationAgent(evaluator=evaluator).run([]).stop_reason
+        == "initial_evaluation_failed"
+    )
 
 
-@pytest.mark.parametrize("kwargs", [{"quality_floor": 2}, {"max_iterations": 0},
-                                     {"latency_target_ms": float("nan")}])
+@pytest.mark.parametrize(
+    "kwargs", [{"quality_floor": 2}, {"max_iterations": 0}, {"latency_target_ms": float("nan")}]
+)
 def test_invalid_budget(kwargs):
     with pytest.raises(ValueError):
         PipelineOptimizationAgent(**kwargs)

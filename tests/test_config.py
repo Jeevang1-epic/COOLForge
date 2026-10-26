@@ -3,12 +3,22 @@ import pytest
 from coolforge.config import PipelineConfig
 
 
-@pytest.mark.parametrize("change", [
-    {"processing_scale": 0}, {"processing_scale": 1.1}, {"processing_scale": float("nan")},
-    {"blur_kernel": 2}, {"adaptive_block_size": 1}, {"adaptive_block_size": 20},
-    {"morphology_kernel": True}, {"adaptive_c": float("inf")}, {"min_contour_area": -1},
-    {"processing_scale": "1"}, {"unknown": 3},
-])
+@pytest.mark.parametrize(
+    "change",
+    [
+        {"processing_scale": 0},
+        {"processing_scale": 1.1},
+        {"processing_scale": float("nan")},
+        {"blur_kernel": 2},
+        {"adaptive_block_size": 1},
+        {"adaptive_block_size": 20},
+        {"morphology_kernel": True},
+        {"adaptive_c": float("inf")},
+        {"min_contour_area": -1},
+        {"processing_scale": "1"},
+        {"unknown": 3},
+    ],
+)
 def test_invalid_parameters(change):
     with pytest.raises(ValueError):
         PipelineConfig.from_dict(change)

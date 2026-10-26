@@ -30,15 +30,31 @@ def main() -> None:
         if not executable:
             continue
         target = output / f"{name}.json"
-        command = [executable, str(ROOT / "scripts/benchmark_worker.py"), "--name", name,
-                   "--dataset", str(Path(opt.dataset).resolve()),
-                   "--config", str(Path(opt.config).resolve()),
-                   "--warmups", str(opt.warmups), "--iterations", str(opt.iterations),
-                   "--threads", str(opt.threads), "--output", str(target.resolve())]
+        command = [
+            executable,
+            str(ROOT / "scripts/benchmark_worker.py"),
+            "--name",
+            name,
+            "--dataset",
+            str(Path(opt.dataset).resolve()),
+            "--config",
+            str(Path(opt.config).resolve()),
+            "--warmups",
+            str(opt.warmups),
+            "--iterations",
+            str(opt.iterations),
+            "--threads",
+            str(opt.threads),
+            "--output",
+            str(target.resolve()),
+        ]
         try:
-            completed = subprocess.run(command, cwd=ROOT, capture_output=True, text=True,
-                                       timeout=3600, check=False)
-            (output / f"{name}.log").write_text(completed.stdout + completed.stderr, encoding="utf-8")
+            completed = subprocess.run(
+                command, cwd=ROOT, capture_output=True, text=True, timeout=3600, check=False
+            )
+            (output / f"{name}.log").write_text(
+                completed.stdout + completed.stderr, encoding="utf-8"
+            )
             if completed.returncode:
                 failures[name] = f"Worker exited {completed.returncode}; see {name}.log"
             else:
@@ -46,8 +62,9 @@ def main() -> None:
         except (OSError, subprocess.TimeoutExpired, ValueError) as exc:
             failures[name] = str(exc)
     write_json(output / "matrix.json", {"failures": failures, "order": order})
-    (output / "report.md").write_text(markdown_report(results.get("stock"), results.get("cool")),
-                                      encoding="utf-8")
+    (output / "report.md").write_text(
+        markdown_report(results.get("stock"), results.get("cool")), encoding="utf-8"
+    )
     print(output / "report.md")
     if failures:
         raise ValueError(f"Workers failed: {failures}")

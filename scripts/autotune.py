@@ -17,10 +17,15 @@ def main() -> None:
     opt = args.parse_args()
     if opt.subset < 1:
         raise ValueError("Subset must be positive")
-    result = PipelineOptimizationAgent(opt.quality_floor, opt.max_iterations,
-                                       opt.latency_target_ms).run(
-        load_dataset(opt.dataset)[:opt.subset], PipelineConfig.load(opt.config),
-        on_step=lambda entry: print(f"{entry.iteration}: {entry.action}; accepted={entry.accepted}"))
+    result = PipelineOptimizationAgent(
+        opt.quality_floor, opt.max_iterations, opt.latency_target_ms
+    ).run(
+        load_dataset(opt.dataset)[: opt.subset],
+        PipelineConfig.load(opt.config),
+        on_step=lambda entry: print(
+            f"{entry.iteration}: {entry.action}; accepted={entry.accepted}"
+        ),
+    )
     write_json(opt.output, result)
     print(f"Stop: {result.stop_reason}; feasible={result.feasible}. Review and approve in the app.")
 

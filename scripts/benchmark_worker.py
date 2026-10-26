@@ -18,8 +18,14 @@ def main() -> None:
     args.add_argument("--threads", type=int, default=1)
     args.add_argument("--output", default="results/local.json")
     opt = args.parse_args()
-    result = run_benchmark(load_dataset(opt.dataset), PipelineConfig.load(opt.config),
-                           opt.name, opt.warmups, opt.iterations, opt.threads)
+    result = run_benchmark(
+        load_dataset(opt.dataset),
+        PipelineConfig.load(opt.config),
+        opt.name,
+        opt.warmups,
+        opt.iterations,
+        opt.threads,
+    )
     write_json(opt.output, result)
     rows = result["evaluation"]["samples"]
     with Path(opt.output).with_suffix(".csv").open("w", newline="", encoding="utf-8") as stream:

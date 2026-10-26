@@ -12,8 +12,12 @@ def main() -> None:
     args.add_argument("--output", default="results/evaluation.json")
     args.add_argument("--iterations", type=int, default=3)
     opt = args.parse_args()
-    result = evaluate(load_dataset(opt.dataset), PipelineConfig.load(opt.config),
-                      repetitions=opt.iterations, warmups=1)
+    result = evaluate(
+        load_dataset(opt.dataset),
+        PipelineConfig.load(opt.config),
+        repetitions=opt.iterations,
+        warmups=1,
+    )
     write_json(opt.output, result)
     print(result.quality)
     print(result.timing)

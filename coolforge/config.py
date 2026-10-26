@@ -27,8 +27,11 @@ class PipelineConfig:
                 raise ValueError(f"{name} must be finite")
         if not 0.25 <= self.processing_scale <= 1:
             raise ValueError("processing_scale must be between 0.25 and 1")
-        for name, maximum in (("blur_kernel", 15), ("adaptive_block_size", 101),
-                              ("morphology_kernel", 15)):
+        for name, maximum in (
+            ("blur_kernel", 15),
+            ("adaptive_block_size", 101),
+            ("morphology_kernel", 15),
+        ):
             value = getattr(self, name)
             minimum = 3 if name == "adaptive_block_size" else 1
             if type(value) is not int or not minimum <= value <= maximum or value % 2 != 1:

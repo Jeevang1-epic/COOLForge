@@ -4,11 +4,17 @@ import pytest
 from coolforge.metrics import latency_metrics, mask_metrics
 
 
-@pytest.mark.parametrize("prediction,truth,f1,iou", [
-    ([[1, 0]], [[1, 0]], 1, 1), ([[1, 0]], [[0, 1]], 0, 0),
-    ([[0, 0]], [[0, 0]], 1, 1), ([[0, 0]], [[1, 0]], 0, 0),
-    ([[1, 0]], [[0, 0]], 0, 0), ([[1, 1]], [[1, 0]], 2/3, 1/2),
-])
+@pytest.mark.parametrize(
+    "prediction,truth,f1,iou",
+    [
+        ([[1, 0]], [[1, 0]], 1, 1),
+        ([[1, 0]], [[0, 1]], 0, 0),
+        ([[0, 0]], [[0, 0]], 1, 1),
+        ([[0, 0]], [[1, 0]], 0, 0),
+        ([[1, 0]], [[0, 0]], 0, 0),
+        ([[1, 1]], [[1, 0]], 2 / 3, 1 / 2),
+    ],
+)
 def test_foreground_edges(prediction, truth, f1, iou):
     result = mask_metrics(np.array(prediction), np.array(truth))
     assert result["f1"] == pytest.approx(f1)

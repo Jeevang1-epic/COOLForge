@@ -9,8 +9,9 @@ from coolforge.dataset import generate_samples
 
 @pytest.fixture
 def measurement():
-    return run_benchmark(generate_samples(2, width=96, height=64), PipelineConfig(),
-                         warmups=0, iterations=1)
+    return run_benchmark(
+        generate_samples(2, width=96, height=64), PipelineConfig(), warmups=0, iterations=1
+    )
 
 
 def pair(measurement):
@@ -18,8 +19,9 @@ def pair(measurement):
     stock, cool = deepcopy(measurement), deepcopy(measurement)
     for name, value in (("stock", stock), ("cool", cool)):
         value["name"] = name
-        value["environment"].update(opencv5_verified=True, architecture_arm64=True,
-                                    cool_verified=name == "cool")
+        value["environment"].update(
+            opencv5_verified=True, architecture_arm64=True, cool_verified=name == "cool"
+        )
     return stock, cool
 
 
@@ -59,3 +61,15 @@ def test_malformed_and_nonfinite(measurement):
     measurement["evaluation"]["timing"]["p95_ms"] = float("nan")
     with pytest.raises(ValueError):
         validate_artifact(measurement)
+
+
+def test_missing_stages_are_rejected(measurement):
+    measurement["evaluation"]["stages_ms"] = {}
+    with pytest.raises(ValueError, match="stages"):
+        validate_artifact(measurement)
+
+
+def test_version_mismatch_blocks_speedup(measurement):
+    stock, cool = pair(measurement)
+    cool["environment"]["cv2_version"] = "5.1.0-dev"
+    assert not compare(stock, cool)["comparable"]

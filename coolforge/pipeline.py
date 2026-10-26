@@ -15,8 +15,13 @@ class PipelineError(RuntimeError):
 
 def inspect(image: np.ndarray, config: PipelineConfig | None = None) -> PipelineResult:
     config = config or PipelineConfig()
-    if (not isinstance(image, np.ndarray) or image.dtype != np.uint8 or not image.size
-            or image.ndim != 3 or image.shape[2] != 3):
+    if (
+        not isinstance(image, np.ndarray)
+        or image.dtype != np.uint8
+        or not image.size
+        or image.ndim != 3
+        or image.shape[2] != 3
+    ):
         raise ValueError("Expected a nonempty uint8 BGR image with three channels")
     height, width = image.shape[:2]
     if min(height, width) < 8 or height * width > 16_000_000:
@@ -31,8 +36,10 @@ def inspect(image: np.ndarray, config: PipelineConfig | None = None) -> Pipeline
         checkpoint = now
 
     try:
-        size = (max(3, round(width * config.processing_scale)),
-                max(3, round(height * config.processing_scale)))
+        size = (
+            max(3, round(width * config.processing_scale)),
+            max(3, round(height * config.processing_scale)),
+        )
         resized = cv2.resize(image, size, interpolation=cv2.INTER_AREA)
         mark("resize")
         gray = cv2.cvtColor(resized, cv2.COLOR_BGR2GRAY)
@@ -40,11 +47,15 @@ def inspect(image: np.ndarray, config: PipelineConfig | None = None) -> Pipeline
         blurred = cv2.GaussianBlur(gray, (config.blur_kernel,) * 2, 0)
         mark("blur")
         threshold = cv2.adaptiveThreshold(
-            blurred, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV,
-            config.adaptive_block_size, config.adaptive_c)
+            blurred,
+            255,
+            cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+            cv2.THRESH_BINARY_INV,
+            config.adaptive_block_size,
+            config.adaptive_c,
+        )
         mark("threshold")
-        kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,
-                                          (config.morphology_kernel,) * 2)
+        kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (config.morphology_kernel,) * 2)
         cleaned = cv2.morphologyEx(threshold, cv2.MORPH_OPEN, kernel)
         mark("morphology")
         contours, _ = cv2.findContours(cleaned, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -68,5 +79,6 @@ def inspect(image: np.ndarray, config: PipelineConfig | None = None) -> Pipeline
         mark("annotate")
     except cv2.error as exc:
         raise PipelineError(f"OpenCV inspection failed: {exc}") from exc
-    return PipelineResult(mask, annotated, detections, stages,
-                          (perf_counter_ns() - start) / 1e6, config)
+    return PipelineResult(
+        mask, annotated, detections, stages, (perf_counter_ns() - start) / 1e6, config
+    )
